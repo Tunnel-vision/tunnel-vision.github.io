@@ -16,7 +16,7 @@
 <meta property="og:description" content="普通函数： function add(a,b){return a+b}; 箭头函数：（a,b）&#x3D;&gt;a+b; 这里就不详细说明箭头函数的简写规则，2者区别主要分为以下几个方面： 1.this方面： 普通函数内部的this，默认指向window，严格模式下指向undefined； 箭头函数内部的this，与上一级作用域中的this指向同一个地方。 2.arguments方面： 普通函数，可以通过">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-11T06:57:18.000Z">
-<meta property="article:modified_time" content="2021-04-11T06:59:36.618Z">
+<meta property="article:modified_time" content="2021-04-11T07:09:35.364Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="函数">
 <meta name="twitter:card" content="summary">
@@ -190,6 +190,7 @@
 <p>2.arguments方面：</p>
 <p>普通函数，可以通过arguments来实现重载；</p>
 <p>箭头函数中，没有arguments，代替它功能是剩余参数rest（…）。</p>
+<span id="more"></span>
 <p>3.原型对象方面：</p>
 <p>普通函数，是有自己的原型对象的；</p>
 <p>箭头函数，没有原型对象。</p>
@@ -372,7 +373,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
