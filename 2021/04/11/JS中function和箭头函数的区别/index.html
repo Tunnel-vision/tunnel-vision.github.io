@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>JS中function和箭头函数的区别 | Liu Xin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.表现方式  普通函数： function add(a,b){return a+b};  箭头函数：（a,b）&#x3D;&gt;a+b;   2.this指向  普通函数： 内部的this，默认指向window，严格模式下指向undefined；  箭头函数：内部的this，与上一级作用域中的this指向同一个地方。">
+  <meta name="description" content="表现方式  普通函数： function add(a,b){return a+b};  箭头函数：（a,b）&#x3D;&gt;a+b;    this指向  普通函数： 内部的this，默认指向window，严格模式下指向undefined；  箭头函数：内部的this，与上一级作用域中的this指向同一个地方。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS中function和箭头函数的区别">
 <meta property="og:url" content="http://example.com/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Liu Xin的博客">
-<meta property="og:description" content="1.表现方式  普通函数： function add(a,b){return a+b};  箭头函数：（a,b）&#x3D;&gt;a+b;   2.this指向  普通函数： 内部的this，默认指向window，严格模式下指向undefined；  箭头函数：内部的this，与上一级作用域中的this指向同一个地方。">
+<meta property="og:description" content="表现方式  普通函数： function add(a,b){return a+b};  箭头函数：（a,b）&#x3D;&gt;a+b;    this指向  普通函数： 内部的this，默认指向window，严格模式下指向undefined；  箭头函数：内部的this，与上一级作用域中的this指向同一个地方。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-11T06:57:18.000Z">
-<meta property="article:modified_time" content="2021-04-11T07:29:02.768Z">
+<meta property="article:modified_time" content="2021-04-14T08:04:25.768Z">
 <meta property="article:author" content="Liu Xin">
 <meta property="article:tag" content="函数">
 <meta name="twitter:card" content="summary">
@@ -185,37 +185,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.表现方式</p>
+        <ol>
+<li><p>表现方式</p>
 <ul>
 <li><p>普通函数： function add(a,b){return a+b};</p>
 </li>
 <li><p>箭头函数：（a,b）=&gt;a+b;</p>
 </li>
 </ul>
-<p>2.this指向</p>
+</li>
+<li><p>this指向</p>
 <ul>
 <li><p>普通函数： 内部的this，默认指向window，严格模式下指向undefined；</p>
 </li>
 <li><p>箭头函数：内部的this，与上一级作用域中的this指向同一个地方。</p>
 <span id="more"></span></li>
 </ul>
-<p>3.arguments 方向</p>
+</li>
+<li><p>arguments 方向</p>
 <ul>
 <li>普通函数：可以通过arguments来实现重载。</li>
 <li>箭头函数： 没有arguments，代替它功能的是展开运算符(…)</li>
 </ul>
-<p>4.原型对象：</p>
+</li>
+<li><p>原型对象：</p>
 <ul>
 <li><p>普通函数：有自己的原型对象。</p>
 </li>
 <li><p>没有原型对象的</p>
 </li>
 </ul>
-<p>5.new 方面</p>
+</li>
+<li><p>new 方面</p>
 <ul>
 <li>普通函数： 可以作为构造函数，通过new实例 来实例出子函数</li>
 <li>箭头函数： 没有构造函数，不能通过new来实例化</li>
 </ul>
+</li>
+<li><p>prototype </p>
+<ul>
+<li>普通函数</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>   参数 问题<br>   做哟牛<br>   // this指针的问题<br>   // 不能够new<br>   // 声明时 已被定义作用域 是他上一级的作用域<br>   // 没有prototype属性<br>   // 不能展开 arguments只能通过 展开运算符接收<br>   // call apply 函数 调用箭头函数时，不会改变this指针</p>
+</blockquote>
 
       
 
@@ -468,6 +483,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -476,7 +495,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">对象</a>
+                <a href="javascript:void(0)" class="js-tag color3">难点</a>
               </li>
             
             <div class="clearfix"></div>
@@ -528,15 +547,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://litten.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://litten.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>litten的博客</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="https://react.docschina.org/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>React中文</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="https://cn.mobx.js.org/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>mobx中文地址</a>
             </li>
           
             <li class="search-li">
