@@ -165,6 +165,569 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js三座大山-原型与原型链" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">js三座大山(原型与原型链)</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="archive-article-date">
+  	<time datetime="2021-08-06T07:49:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><ol>
+<li><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.age = age;</span><br><span class="line">    o.job = job;</span><br><span class="line">    o.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person1 = createPerson(<span class="string">&#x27;nicholas&#x27;</span>, <span class="number">29</span>, <span class="string">&#x27;software engine&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> person2 = createPerson(<span class="string">&#x27;Greg&#x27;</span>, <span class="number">27</span>, <span class="string">&#x27;Doctor&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>没有解决的问题
+1. 对象的标识问题。
+</code></pre>
+<ol start="2">
+<li><h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><blockquote>
+<p>和工厂模式的区别: </p>
+</blockquote>
+<ol>
+<li>没有显示的创建对象。</li>
+<li>属性和方法都赋值给this</li>
+<li>没有 return</li>
+<li>可以确定对象的类型。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    <span class="built_in">this</span>.job = job;</span><br><span class="line">    <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person3 = <span class="keyword">new</span> Person(<span class="string">&quot;nicholas&quot;</span>, <span class="number">29</span>, <span class="string">&#x27;software engine&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> person4 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">27</span>, <span class="string">&#x27;doctor&#x27;</span>);</span><br><span class="line"><span class="comment">// 没有显示创建对象;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p> 缺点</p>
+<ol>
+<li>没法复用function,每个实例都会有自己的function/ 等价于 new Function</li>
+</ol>
+</li>
+<li><h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><blockquote>
+<p>每个函数都有一个prototype 对象。原型是由调用构造函数创建的对象的原型。<br>在它上面的属性和方法 可以被实例共享。</p>
+</blockquote>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">Person1()</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.name = &#x27;Nicholas&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.age = <span class="number">29</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.job = &#x27;software engine&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person5 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="keyword">let</span> person6 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person1</span>.</span></span>prototype.constructor = Person1;</span><br></pre></td></tr></table></figure>
+<p>特性:</p>
+</li>
+<li><p>每个实例内部指针 都指向 <strong>prop</strong> Peron1.proptotype</p>
+</li>
+<li><p>实例与构造函数的原型有直接关系,但与构造函数无直接关系.</p>
+</li>
+<li><p>Object.prototype.<strong>proto</strong>  == null</p>
+</li>
+<li><p>Object.propotype == {construcor:f(), hasOwnProperty}</p>
+</li>
+<li><p>Object.getPrototypeOf(实例对象).attribute // 取实例对象的原型的属性.</p>
+</li>
+<li><p>Object.setPrototypeOf(obj,新的原型) 可以向实例的私有属性__proto__写入一个新值 </p>
+</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>弱化了 向构造函数传递参数的问题.</li>
+<li>共享属性.导致污染实例属性的值.</li>
+</ol>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ol>
+<li><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><blockquote>
+<p> 继承的思想 实例对象的__proto__指向的原型 是另一个类型的实例。意味这个 原型 有一个内部指针指向了另一个原型。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.property;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.subProperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line"></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.subProperty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(instance.getSuperValue())</span><br></pre></td></tr></table></figure>
+//  默认原型<br>// 原型与继承的关系<br>// 关于方法 可以覆盖父类的方法<br>//  原型的问题： 原型的引用值会在实例间共享。</li>
+</ol>
+<ol start="2">
+<li><h3 id="盗用构造函数继承-对象伪装，经典继承"><a href="#盗用构造函数继承-对象伪装，经典继承" class="headerlink" title="盗用构造函数继承 对象伪装，经典继承"></a>盗用构造函数继承 对象伪装，经典继承</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 继承 SuperType 可以传递参数</span></span><br><span class="line">    SuperType.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>特性:</p>
+<ol>
+<li>解决了引用值 在实例间共享的问题。<br>缺点:</li>
+<li>必须在构造函数中 定义方法，</li>
+<li>子类也不能访问父类原型定义的方法</li>
+</ol>
+</li>
+<li><h3 id="组合继承-伪经典继承"><a href="#组合继承-伪经典继承" class="headerlink" title="组合继承 伪经典继承"></a>组合继承 伪经典继承</h3><blockquote>
+<p>思想: 使用原型链继承原型上的属性和方法，使用盗用构造函数继承实例属性。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 继承属性</span></span><br><span class="line">    SuperType.call(<span class="built_in">this</span>, name)</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继承方法</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">object</span>(o) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="constructor">F()</span> &#123; &#125;;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">F</span>.</span></span>prototype = o;</span><br><span class="line">    return <span class="keyword">new</span> <span class="constructor">F()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>//  Object.create(对象)  第二个参数 定义属性描述符<br>// 你有一个对象，想在它的基础上创建一个新的对象。</p>
+</li>
+</ol>
+<ol start="5">
+<li><h3 id="寄生式继承-类似于寄生构造函数-和工厂模式"><a href="#寄生式继承-类似于寄生构造函数-和工厂模式" class="headerlink" title="寄生式继承 类似于寄生构造函数 和工厂模式"></a>寄生式继承 类似于寄生构造函数 和工厂模式</h3><blockquote>
+<p>思想: 创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAnother</span>(<span class="params">origin</span>) </span>&#123;</span><br><span class="line">    let <span class="keyword">clone</span> = <span class="keyword">object</span>.create(origin);</span><br><span class="line">    <span class="keyword">clone</span>.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        console.log(<span class="string">&#x27;hi&#x27;</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">clone</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>//  适用于关注对象，而不在乎类型和构造函数的场景。只要返回新对象的函数，都可以。<br>//  函数难以重用</p>
+</li>
+<li><h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><blockquote>
+<p> 来解决 组合继承的问题。父类的构造函数会被调用两次<br> 子类继承父类的原型时，不在通过 new 来实现。而是通过 object.create来实现。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subtype</span>, <span class="params">superType</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> prototype = <span class="module-access"><span class="module"><span class="identifier">Object</span>.</span></span>create(superType); <span class="comment">// 创建对象</span></span><br><span class="line">    prototype.constructor = subtype <span class="comment">// 增强对象</span></span><br><span class="line">    subtype.prototype = prototype <span class="comment">// 赋值对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="constructor">SuperType(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = <span class="literal">[&#x27;<span class="identifier">red</span>&#x27;, &#x27;<span class="identifier">blue</span>&#x27;]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> sub<span class="constructor">Type(<span class="params">name</span>, <span class="params">age</span>)</span> &#123;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>call(this, name)</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subType</span>, SuperType)</span></span><br><span class="line">subType.prototype.sayAge = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>枚举对象的方法汇总</p>
+</blockquote>
+<ol>
+<li><p>方法是可以被枚举的.</p>
+</li>
+<li><p>hasOwnProperty 用来判断某个属性 是在实例上还是在原型对象上.</p>
+</li>
+<li><p>in 操作符 for in 对象的属性 in 操作符 不考虑是否在原型上.</p>
+</li>
+<li><p>for in 会遍历所有可以被枚举的属性,不论实在实例属性还是原型属性.</p>
+</li>
+<li><p>object.keys() 返回对象的可枚举属性的字符串数组 不包含原型的属性</p>
+</li>
+<li><p>Object.getOwnPropertyNames(); 所有属性 不论是否可以被枚举,会包含 constructor</p>
+</li>
+<li><p>Object.getOwnPropertySymbols() 只针对符号</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用来判断一个属性 是否在原型上。</span><br><span class="line"><span class="keyword">function</span> hasProtoypeProperty(<span class="keyword">object</span>,<span class="type">name</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">object</span>.hasOwnProperty(<span class="type">name</span>) &amp;&amp; (<span class="type">name</span> <span class="keyword">in</span> <span class="keyword">object</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> for in , object.keys() 枚举顺序不确定</p>
+</li>
+<li><p> object.getOwnPropertyNames(), Object.getOwnPropertySymbols() ,object.assign() 顺序确定</p>
+</li>
+<li><p> 先升序枚举数值键,然后以插入顺序枚举字符串和符号</p>
+</li>
+<li><p> 对象迭代</p>
+</li>
+<li><p>object.keys(), object.entries(), object.values()</p>
+</li>
+</ol>
+<blockquote>
+<p> 创建一个新对象,并为指定原型. Object.create()</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-css居中" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/24/css%E5%B1%85%E4%B8%AD/">css居中</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/24/css%E5%B1%85%E4%B8%AD/" class="archive-article-date">
+  	<time datetime="2021-05-24T06:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 )<br>垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  )<br>水平垂直居中:</p>
+        
+          <a class="article-more-a" href="/2021/05/24/css%E5%B1%85%E4%B8%AD/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">清除浮动</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/css//" class="article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/24/css%E5%B1%85%E4%B8%AD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-清除浮动" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/">清除浮动</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" class="archive-article-date">
+  	<time datetime="2021-05-21T02:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>浮动的影响:<br>    1. 由于浮动元素脱离了文档流，所以父元素的高度无法被撑开，影响了与父元素同级的元素<br>    2. 与浮动元素同级的非浮动元素会跟随其后，因为浮动元素脱离文档流不占据原来的位置<br>    3. 如果该浮动元素不是第一个浮动元素，则该元素之前的元素也需要浮动，否则容易影响页面的结构显示</p>
+        
+          <a class="article-more-a" href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">清除浮动</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/css//" class="article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-this绑定规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">this绑定规则</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/" class="archive-article-date">
+  	<time datetime="2021-05-06T02:28:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>函数的执行过程中是通过调用位置决定this的绑定对象<br>必须找到函数的调用位置，</p>
+        
+          <a class="article-more-a" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">对象</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JS函数定义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/">JS函数定义</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/" class="archive-article-date">
+  	<time datetime="2021-04-20T09:24:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="3种函数定义"><a href="#3种函数定义" class="headerlink" title="3种函数定义"></a>3种函数定义</h3><ol>
+<li><p>函数关键字<br> function fn(x){</p>
+<pre><code> alert(x)
+</code></pre>
+<p> }</p>
+</li>
+<li><p>函数字面量<br> var fn = function(x){</p>
+<pre><code> alert(x)
+</code></pre>
+<p> }</p>
+</li>
+<li><p>Function()构造函数<br> var fn = new Function(‘x’,alert(x))</p>
+</li>
+</ol>
+<h3 id="四种调用方式"><a href="#四种调用方式" class="headerlink" title="四种调用方式"></a>四种调用方式</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -445,171 +1008,10 @@
 
 
   
-    <article id="post-Hexo使用总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Hexo使用总结</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2021-04-06T11:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="quick-start"><a href="#quick-start" class="headerlink" title="quick start"></a>quick start</h3><pre><code>1. git clone master 分支
-2. npm install 
-3. hexo clean // 清理静态文件
-4. hexo g // 生成静态文件
-5. hexo d // 部署
-</code></pre>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>缺失模块。请确保node版本大于6.2</li>
-<li>在博客根目录（注意不是yilia根目录）执行以下命令：npm i hexo-generator-json-content –save</li>
-<li>在根目录_config.yml里添加配置<br>jsonContent:<br>meta: false<br>pages: false<br>posts:<br>title: true<br>date: true<br>path: true<br>text: false<br>raw: false<br>content: false<br>slug: false<br>updated: false<br>comments: false<br>link: false<br>permalink: false<br>excerpt: false<br>categories: false<br>tags: true</li>
-</ol>
-<h3 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h3><ol>
-<li>npm install hexo-asset-image –save</li>
-<li>在_config.yml配置文件中，修改为 post_asset_folder: true</li>
-</ol>
-<h3 id="markdown语法失效"><a href="#markdown语法失效" class="headerlink" title="markdown语法失效"></a>markdown语法失效</h3><pre><code>1. [解决办法](https://whatsid.me/2019/08/21/hexo-markdown-syntax/)
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/06/hello-world/" class="archive-article-date">
-  	<time datetime="2021-04-06T11:50:54.867Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/06/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -716,6 +1118,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">难点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">清除浮动</a>
               </li>
             
             <div class="clearfix"></div>

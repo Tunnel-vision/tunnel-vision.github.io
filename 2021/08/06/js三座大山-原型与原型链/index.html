@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>react双向绑定 | Liu Xin的博客</title>
+  <title>js三座大山(原型与原型链) | Liu Xin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="双向绑定的定义：Model绑定View，model数据变的话，View视图会跟着变。View视图更新的话，会自动更新Model的状态。">
+  <meta name="description" content="创建对象 工厂模式  123456789101112function createPerson(name, age, job) &amp;#123;    let o &#x3D; new Object();    o.name &#x3D; name;    o.age &#x3D; age;    o.job &#x3D; job;    o.sayName &#x3D; function () &amp;#123;        console.log(t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react双向绑定">
-<meta property="og:url" content="http://example.com/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/index.html">
+<meta property="og:title" content="js三座大山(原型与原型链)">
+<meta property="og:url" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/index.html">
 <meta property="og:site_name" content="Liu Xin的博客">
-<meta property="og:description" content="双向绑定的定义：Model绑定View，model数据变的话，View视图会跟着变。View视图更新的话，会自动更新Model的状态。">
+<meta property="og:description" content="创建对象 工厂模式  123456789101112function createPerson(name, age, job) &amp;#123;    let o &#x3D; new Object();    o.name &#x3D; name;    o.age &#x3D; age;    o.job &#x3D; job;    o.sayName &#x3D; function () &amp;#123;        console.log(t">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-15T14:07:53.000Z">
-<meta property="article:modified_time" content="2021-04-16T03:23:54.888Z">
+<meta property="article:published_time" content="2021-08-06T07:49:38.000Z">
+<meta property="article:modified_time" content="2021-08-06T08:21:43.985Z">
 <meta property="article:author" content="Liu Xin">
-<meta property="article:tag" content="难点">
+<meta property="article:tag" content="函数">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Liu Xin的博客" type="application/atom+xml">
@@ -165,46 +165,145 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-react双向绑定" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-js三座大山-原型与原型链" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      react双向绑定
+      js三座大山(原型与原型链)
     </h1>
   
 
         
-        <a href="/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" class="archive-article-date">
-  	<time datetime="2021-04-15T14:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-15</time>
+        <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="archive-article-date">
+  	<time datetime="2021-08-06T07:49:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>双向绑定的定义：<br>Model绑定View，model数据变的话，View视图会跟着变。<br>View视图更新的话，会自动更新Model的状态。</p>
-<span id="more"></span>
+        <h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><ol>
+<li><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.age = age;</span><br><span class="line">    o.job = job;</span><br><span class="line">    o.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person1 = createPerson(<span class="string">&#x27;nicholas&#x27;</span>, <span class="number">29</span>, <span class="string">&#x27;software engine&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> person2 = createPerson(<span class="string">&#x27;Greg&#x27;</span>, <span class="number">27</span>, <span class="string">&#x27;Doctor&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>没有解决的问题
+1. 对象的标识问题。
+</code></pre>
+<ol start="2">
+<li><h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><blockquote>
+<p>和工厂模式的区别: </p>
+</blockquote>
 <ol>
-<li>原生React方式<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">export <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 实际业务中，数据可能是来自props</span></span><br><span class="line">    state = &#123;</span><br><span class="line">        name: &#x27;&#x27;,</span><br><span class="line">        email: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    changeFromEvt = (key, evt) =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            [key]: evt.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;form&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    value=&#123;<span class="keyword">this</span>.state.name&#125;</span><br><span class="line">                    onChange=&#123;<span class="keyword">this</span>.changeFromEvt.bind(<span class="keyword">this</span>, <span class="symbol">&#x27;nam</span>e&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    <span class="class"><span class="keyword">type</span></span>=<span class="string">&quot;email&quot;</span></span><br><span class="line">                    value=&#123;<span class="keyword">this</span>.state.email&#125;</span><br><span class="line">                    onChange=&#123;<span class="keyword">this</span>.changeFromEvt.bind(<span class="keyword">this</span>, <span class="symbol">&#x27;emai</span>l&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>没有显示的创建对象。</li>
+<li>属性和方法都赋值给this</li>
+<li>没有 return</li>
+<li>可以确定对象的类型。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    <span class="built_in">this</span>.job = job;</span><br><span class="line">    <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person3 = <span class="keyword">new</span> Person(<span class="string">&quot;nicholas&quot;</span>, <span class="number">29</span>, <span class="string">&#x27;software engine&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> person4 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">27</span>, <span class="string">&#x27;doctor&#x27;</span>);</span><br><span class="line"><span class="comment">// 没有显示创建对象;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p> 缺点</p>
+<ol>
+<li>没法复用function,每个实例都会有自己的function/ 等价于 new Function</li>
+</ol>
+</li>
+<li><h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><blockquote>
+<p>每个函数都有一个prototype 对象。原型是由调用构造函数创建的对象的原型。<br>在它上面的属性和方法 可以被实例共享。</p>
+</blockquote>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">Person1()</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.name = &#x27;Nicholas&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.age = <span class="number">29</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.job = &#x27;software engine&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person5 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="keyword">let</span> person6 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person1</span>.</span></span>prototype.constructor = Person1;</span><br></pre></td></tr></table></figure>
+<p>特性:</p>
+</li>
+<li><p>每个实例内部指针 都指向 <strong>prop</strong> Peron1.proptotype</p>
+</li>
+<li><p>实例与构造函数的原型有直接关系,但与构造函数无直接关系.</p>
+</li>
+<li><p>Object.prototype.<strong>proto</strong>  == null</p>
+</li>
+<li><p>Object.propotype == {construcor:f(), hasOwnProperty}</p>
+</li>
+<li><p>Object.getPrototypeOf(实例对象).attribute // 取实例对象的原型的属性.</p>
+</li>
+<li><p>Object.setPrototypeOf(obj,新的原型) 可以向实例的私有属性__proto__写入一个新值 </p>
+</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>弱化了 向构造函数传递参数的问题.</li>
+<li>共享属性.导致污染实例属性的值.</li>
+</ol>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ol>
+<li><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><blockquote>
+<p> 继承的思想 实例对象的__proto__指向的原型 是另一个类型的实例。意味这个 原型 有一个内部指针指向了另一个原型。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.property;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.subProperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line"></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.subProperty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(instance.getSuperValue())</span><br></pre></td></tr></table></figure>
+//  默认原型<br>// 原型与继承的关系<br>// 关于方法 可以覆盖父类的方法<br>//  原型的问题： 原型的引用值会在实例间共享。</li>
 </ol>
 <ol start="2">
-<li>Hoc方式<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">function <span class="type">PPHOC</span>(<span class="type">WrappedComponent</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">PP</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123; fields: &#123;&#125; &#125;</span><br><span class="line">    </span><br><span class="line">    getField(fieldName) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.state.fields[fieldName]) &#123;</span><br><span class="line">        <span class="keyword">this</span>.state.fields[fieldName] = &#123;</span><br><span class="line">          value: &#x27;&#x27;,</span><br><span class="line">          onChange: event =&gt; &#123;</span><br><span class="line">            <span class="keyword">this</span>.state.fields[fieldName].value = event.target.value</span><br><span class="line">            <span class="keyword">this</span>.forceUpdate()</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        value: <span class="keyword">this</span>.state.fields[fieldName].value,</span><br><span class="line">        onChange: <span class="keyword">this</span>.state.fields[fieldName].onChange</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      const props = <span class="type">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.props, &#123;</span><br><span class="line">        fields: <span class="keyword">this</span>.getField.bind(<span class="keyword">this</span>),</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;<span class="type">WrappedComponent</span> &#123;...props&#125;/&gt;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;form&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    &#123;...<span class="keyword">this</span>.props.fields(<span class="symbol">&#x27;nam</span>e&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    <span class="class"><span class="keyword">type</span></span>=<span class="string">&quot;email&quot;</span></span><br><span class="line">                    &#123;...<span class="keyword">this</span>.props.fields(<span class="symbol">&#x27;emai</span>l&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><h3 id="盗用构造函数继承-对象伪装，经典继承"><a href="#盗用构造函数继承-对象伪装，经典继承" class="headerlink" title="盗用构造函数继承 对象伪装，经典继承"></a>盗用构造函数继承 对象伪装，经典继承</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 继承 SuperType 可以传递参数</span></span><br><span class="line">    SuperType.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>特性:</p>
+<ol>
+<li>解决了引用值 在实例间共享的问题。<br>缺点:</li>
+<li>必须在构造函数中 定义方法，</li>
+<li>子类也不能访问父类原型定义的方法</li>
 </ol>
-<ol start="3">
-<li>Mobx(观察者方式)</li>
+</li>
+<li><h3 id="组合继承-伪经典继承"><a href="#组合继承-伪经典继承" class="headerlink" title="组合继承 伪经典继承"></a>组合继承 伪经典继承</h3><blockquote>
+<p>思想: 使用原型链继承原型上的属性和方法，使用盗用构造函数继承实例属性。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 继承属性</span></span><br><span class="line">    SuperType.call(<span class="built_in">this</span>, name)</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继承方法</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">object</span>(o) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="constructor">F()</span> &#123; &#125;;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">F</span>.</span></span>prototype = o;</span><br><span class="line">    return <span class="keyword">new</span> <span class="constructor">F()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>//  Object.create(对象)  第二个参数 定义属性描述符<br>// 你有一个对象，想在它的基础上创建一个新的对象。</p>
+</li>
 </ol>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; observable, action &#125; from <span class="symbol">&#x27;mob</span>x&#x27;</span><br><span class="line">export <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="meta">@observable</span> form = &#123;</span><br><span class="line">        name: &#x27;&#x27;,</span><br><span class="line">        email: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    changeFromEvt = (key, evt) =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>[key] = evt.target.value</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;form&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    value=&#123;<span class="keyword">this</span>.state.name&#125;</span><br><span class="line">                    onChange=&#123;<span class="keyword">this</span>.changeFromEvt.bind(<span class="keyword">this</span>, <span class="symbol">&#x27;nam</span>e&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    <span class="class"><span class="keyword">type</span></span>=<span class="string">&quot;email&quot;</span></span><br><span class="line">                    value=&#123;<span class="keyword">this</span>.state.email&#125;</span><br><span class="line">                    onChange=&#123;<span class="keyword">this</span>.changeFromEvt.bind(<span class="keyword">this</span>, <span class="symbol">&#x27;emai</span>l&#x27;)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><h3 id="寄生式继承-类似于寄生构造函数-和工厂模式"><a href="#寄生式继承-类似于寄生构造函数-和工厂模式" class="headerlink" title="寄生式继承 类似于寄生构造函数 和工厂模式"></a>寄生式继承 类似于寄生构造函数 和工厂模式</h3><blockquote>
+<p>思想: 创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAnother</span>(<span class="params">origin</span>) </span>&#123;</span><br><span class="line">    let <span class="keyword">clone</span> = <span class="keyword">object</span>.create(origin);</span><br><span class="line">    <span class="keyword">clone</span>.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        console.log(<span class="string">&#x27;hi&#x27;</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">clone</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>//  适用于关注对象，而不在乎类型和构造函数的场景。只要返回新对象的函数，都可以。<br>//  函数难以重用</p>
+</li>
+<li><h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><blockquote>
+<p> 来解决 组合继承的问题。父类的构造函数会被调用两次<br> 子类继承父类的原型时，不在通过 new 来实现。而是通过 object.create来实现。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subtype</span>, <span class="params">superType</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> prototype = <span class="module-access"><span class="module"><span class="identifier">Object</span>.</span></span>create(superType); <span class="comment">// 创建对象</span></span><br><span class="line">    prototype.constructor = subtype <span class="comment">// 增强对象</span></span><br><span class="line">    subtype.prototype = prototype <span class="comment">// 赋值对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="constructor">SuperType(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = <span class="literal">[&#x27;<span class="identifier">red</span>&#x27;, &#x27;<span class="identifier">blue</span>&#x27;]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> sub<span class="constructor">Type(<span class="params">name</span>, <span class="params">age</span>)</span> &#123;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>call(this, name)</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subType</span>, SuperType)</span></span><br><span class="line">subType.prototype.sayAge = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>双向绑定方式(重要)<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; observable, binding &#125; from <span class="symbol">&#x27;react</span>-mobx-vm&#x27;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Form</span> </span>&#123;</span><br><span class="line">    <span class="meta">@observable</span> name = &#x27;&#x27;</span><br><span class="line">    <span class="meta">@observable</span> email = &#x27;&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@binding</span>(<span class="keyword">new</span> <span class="type">Form</span>())</span><br><span class="line">export <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;form&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    data-bind=<span class="string">&quot;name&quot;</span></span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    <span class="class"><span class="keyword">type</span></span>=<span class="string">&quot;email&quot;</span></span><br><span class="line">                    data-bind=<span class="string">&quot;email&quot;</span></span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+
+
+
+
+<blockquote>
+<p>枚举对象的方法汇总</p>
+</blockquote>
+<ol>
+<li><p>方法是可以被枚举的.</p>
+</li>
+<li><p>hasOwnProperty 用来判断某个属性 是在实例上还是在原型对象上.</p>
+</li>
+<li><p>in 操作符 for in 对象的属性 in 操作符 不考虑是否在原型上.</p>
+</li>
+<li><p>for in 会遍历所有可以被枚举的属性,不论实在实例属性还是原型属性.</p>
+</li>
+<li><p>object.keys() 返回对象的可枚举属性的字符串数组 不包含原型的属性</p>
+</li>
+<li><p>Object.getOwnPropertyNames(); 所有属性 不论是否可以被枚举,会包含 constructor</p>
+</li>
+<li><p>Object.getOwnPropertySymbols() 只针对符号</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用来判断一个属性 是否在原型上。</span><br><span class="line"><span class="keyword">function</span> hasProtoypeProperty(<span class="keyword">object</span>,<span class="type">name</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">object</span>.hasOwnProperty(<span class="type">name</span>) &amp;&amp; (<span class="type">name</span> <span class="keyword">in</span> <span class="keyword">object</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> for in , object.keys() 枚举顺序不确定</p>
+</li>
+<li><p> object.getOwnPropertyNames(), Object.getOwnPropertySymbols() ,object.assign() 顺序确定</p>
+</li>
+<li><p> 先升序枚举数值键,然后以插入顺序枚举字符串和符号</p>
+</li>
+<li><p> 对象迭代</p>
+</li>
+<li><p>object.keys(), object.entries(), object.values()</p>
+</li>
 </ol>
 <blockquote>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e7ebb1500613">https://www.jianshu.com/p/e7ebb1500613</a></li>
-</ol>
+<p> 创建一个新对象,并为指定原型. Object.create()</p>
 </blockquote>
 
       
@@ -240,7 +339,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">难点</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
         		</li>
       		
 		</ul>
@@ -307,7 +406,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -321,18 +420,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JS函数定义
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/04/11/JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JS中原型链的理解</div>
+    <a href="/2021/05/24/css%E5%B1%85%E4%B8%AD/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">css居中</div>
       <i class="icon-circle-right"></i>
     </a>
   
