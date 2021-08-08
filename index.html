@@ -165,6 +165,310 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前端常见的知识汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/">前端常见的知识汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/" class="archive-article-date">
+  	<time datetime="2021-08-06T10:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.为什么javascript是单线程<br>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js三座大山-异步和单线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/">js三座大山(异步和单线程)</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-08-06T08:38:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="javascript-的运行机制"><a href="#javascript-的运行机制" class="headerlink" title="javascript 的运行机制"></a>javascript 的运行机制</h3><p>(1)所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</p>
+<p>（2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</p>
+<p>（3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+<p>（4）主线程不断重复上面的第三步。</p>
+<p>流程图<br><img src="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/threadprogress.jpg" alt="线程的运行图"></p>
+<p>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。</p>
+<h3 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h3><p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
+<p>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
+<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
+<p>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
+<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3><p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
+<p><img src="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/eventLoop.png" alt="eventLoop循环"></p>
+<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>执行栈中的代码（同步任务），总是在读取”任务队列”（异步任务）之前执行</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    req.open(<span class="string">&#x27;GET&#x27;</span>, <span class="built_in">url</span>);    </span><br><span class="line">    req.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;    </span><br><span class="line">    req.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;    </span><br><span class="line">    req.send();</span><br><span class="line"></span><br><span class="line">等价</span><br><span class="line">  <span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    req.open(<span class="string">&#x27;GET&#x27;</span>, <span class="built_in">url</span>);</span><br><span class="line">    req.send();</span><br><span class="line">    req.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;    </span><br><span class="line">    req.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;   </span><br></pre></td></tr></table></figure>
+
+<p>也就是说，指定回调函数的部分（onload和onerror），在send()方法的前面或后面无关紧要，因为它们属于执行栈的一部分，系统总是执行完它们，才会去读取”任务队列”。</p>
+<h3 id="js的异步任务"><a href="#js的异步任务" class="headerlink" title="js的异步任务"></a>js的异步任务</h3><p>异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有等主线程任务执行完毕，”任务队列”开始通知主线程，请求执行任务，该任务才会进入主线程执行。</p>
+<p>宏任务</p>
+<ul>
+<li>宏任务就是将当前任务放在下一个任务列最顶部</li>
+</ul>
+<p>微任务</p>
+<ul>
+<li><p>微任务会将当前任务放入下一个任务列的底部<br>主要的异步任务有</p>
+<ol>
+<li><p>宏任务<br>setTimeout<br>setInterval<br>setImmediate<br>requestAnimaltionFrame</p>
+</li>
+<li><p>微任务<br>process.nextTick<br>MutaionObserver<br>Promise. then catch finally</p>
+</li>
+</ol>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">三座大山系列</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js三座大山-作用域及闭包(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/">js三座大山(作用域及闭包)</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/" class="archive-article-date">
+  	<time datetime="2021-08-06T08:38:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="编译的原理"><a href="#编译的原理" class="headerlink" title="编译的原理"></a>编译的原理</h2><p>1.分词/词法解析</p>
+<blockquote>
+<p>将由字符组成的字符串分解成有意义的代码块。</p>
+</blockquote>
+<p>2.解析/语法解析</p>
+<blockquote>
+<p>将此法单元流(数组)转换为一个由元素逐级嵌套所组成的代表了程序语法的结构的树。抽象语法树</p>
+</blockquote>
+<p>3.代码生成</p>
+<blockquote>
+<p>将AST 转换为可执行代码的过程 被称为代码生成。 与语言，及其平台息息相关。</p>
+</blockquote>
+<p>javascript 的编译 发生在代码执行前的几微秒(甚至更短)。</p>
+<p>引擎<br>编译器<br>作用域</p>
+<blockquote>
+<p> 1.在编译时处理 2.引擎在运行时处理</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">三座大山系列</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js三座大山-原型与原型链" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -192,120 +496,9 @@
 <pre><code>没有解决的问题
 1. 对象的标识问题。
 </code></pre>
-<ol start="2">
-<li><h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><blockquote>
-<p>和工厂模式的区别: </p>
-</blockquote>
-<ol>
-<li>没有显示的创建对象。</li>
-<li>属性和方法都赋值给this</li>
-<li>没有 return</li>
-<li>可以确定对象的类型。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    <span class="built_in">this</span>.job = job;</span><br><span class="line">    <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person3 = <span class="keyword">new</span> Person(<span class="string">&quot;nicholas&quot;</span>, <span class="number">29</span>, <span class="string">&#x27;software engine&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> person4 = <span class="keyword">new</span> Person(<span class="string">&quot;Greg&quot;</span>, <span class="number">27</span>, <span class="string">&#x27;doctor&#x27;</span>);</span><br><span class="line"><span class="comment">// 没有显示创建对象;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p> 缺点</p>
-<ol>
-<li>没法复用function,每个实例都会有自己的function/ 等价于 new Function</li>
-</ol>
-</li>
-<li><h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><blockquote>
-<p>每个函数都有一个prototype 对象。原型是由调用构造函数创建的对象的原型。<br>在它上面的属性和方法 可以被实例共享。</p>
-</blockquote>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">Person1()</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.name = &#x27;Nicholas&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.age = <span class="number">29</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.job = &#x27;software engine&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person5 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="keyword">let</span> person6 = <span class="keyword">new</span> <span class="constructor">Person1()</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person1</span>.</span></span>prototype.constructor = Person1;</span><br></pre></td></tr></table></figure>
-<p>特性:</p>
-</li>
-<li><p>每个实例内部指针 都指向 <strong>prop</strong> Peron1.proptotype</p>
-</li>
-<li><p>实例与构造函数的原型有直接关系,但与构造函数无直接关系.</p>
-</li>
-<li><p>Object.prototype.<strong>proto</strong>  == null</p>
-</li>
-<li><p>Object.propotype == {construcor:f(), hasOwnProperty}</p>
-</li>
-<li><p>Object.getPrototypeOf(实例对象).attribute // 取实例对象的原型的属性.</p>
-</li>
-<li><p>Object.setPrototypeOf(obj,新的原型) 可以向实例的私有属性__proto__写入一个新值 </p>
-</li>
-</ol>
-<p>缺点:</p>
-<ol>
-<li>弱化了 向构造函数传递参数的问题.</li>
-<li>共享属性.导致污染实例属性的值.</li>
-</ol>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ol>
-<li><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><blockquote>
-<p> 继承的思想 实例对象的__proto__指向的原型 是另一个类型的实例。意味这个 原型 有一个内部指针指向了另一个原型。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.property;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.subProperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line"></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.subProperty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(instance.getSuperValue())</span><br></pre></td></tr></table></figure>
-//  默认原型<br>// 原型与继承的关系<br>// 关于方法 可以覆盖父类的方法<br>//  原型的问题： 原型的引用值会在实例间共享。</li>
-</ol>
-<ol start="2">
-<li><h3 id="盗用构造函数继承-对象伪装，经典继承"><a href="#盗用构造函数继承-对象伪装，经典继承" class="headerlink" title="盗用构造函数继承 对象伪装，经典继承"></a>盗用构造函数继承 对象伪装，经典继承</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 继承 SuperType 可以传递参数</span></span><br><span class="line">    SuperType.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>特性:</p>
-<ol>
-<li>解决了引用值 在实例间共享的问题。<br>缺点:</li>
-<li>必须在构造函数中 定义方法，</li>
-<li>子类也不能访问父类原型定义的方法</li>
-</ol>
-</li>
-<li><h3 id="组合继承-伪经典继承"><a href="#组合继承-伪经典继承" class="headerlink" title="组合继承 伪经典继承"></a>组合继承 伪经典继承</h3><blockquote>
-<p>思想: 使用原型链继承原型上的属性和方法，使用盗用构造函数继承实例属性。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 继承属性</span></span><br><span class="line">    SuperType.call(<span class="built_in">this</span>, name)</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继承方法</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">object</span>(o) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="constructor">F()</span> &#123; &#125;;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">F</span>.</span></span>prototype = o;</span><br><span class="line">    return <span class="keyword">new</span> <span class="constructor">F()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>//  Object.create(对象)  第二个参数 定义属性描述符<br>// 你有一个对象，想在它的基础上创建一个新的对象。</p>
-</li>
-</ol>
-<ol start="5">
-<li><h3 id="寄生式继承-类似于寄生构造函数-和工厂模式"><a href="#寄生式继承-类似于寄生构造函数-和工厂模式" class="headerlink" title="寄生式继承 类似于寄生构造函数 和工厂模式"></a>寄生式继承 类似于寄生构造函数 和工厂模式</h3><blockquote>
-<p>思想: 创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象。</p>
-</blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAnother</span>(<span class="params">origin</span>) </span>&#123;</span><br><span class="line">    let <span class="keyword">clone</span> = <span class="keyword">object</span>.create(origin);</span><br><span class="line">    <span class="keyword">clone</span>.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        console.log(<span class="string">&#x27;hi&#x27;</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">clone</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>//  适用于关注对象，而不在乎类型和构造函数的场景。只要返回新对象的函数，都可以。<br>//  函数难以重用</p>
-</li>
-<li><h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><blockquote>
-<p> 来解决 组合继承的问题。父类的构造函数会被调用两次<br> 子类继承父类的原型时，不在通过 new 来实现。而是通过 object.create来实现。</p>
-</blockquote>
-</li>
-</ol>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subtype</span>, <span class="params">superType</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> prototype = <span class="module-access"><span class="module"><span class="identifier">Object</span>.</span></span>create(superType); <span class="comment">// 创建对象</span></span><br><span class="line">    prototype.constructor = subtype <span class="comment">// 增强对象</span></span><br><span class="line">    subtype.prototype = prototype <span class="comment">// 赋值对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="constructor">SuperType(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = <span class="literal">[&#x27;<span class="identifier">red</span>&#x27;, &#x27;<span class="identifier">blue</span>&#x27;]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> sub<span class="constructor">Type(<span class="params">name</span>, <span class="params">age</span>)</span> &#123;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>call(this, name)</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inherit</span><span class="constructor">Proptype(<span class="params">subType</span>, SuperType)</span></span><br><span class="line">subType.prototype.sayAge = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    console.log(this.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<blockquote>
-<p>枚举对象的方法汇总</p>
-</blockquote>
-<ol>
-<li><p>方法是可以被枚举的.</p>
-</li>
-<li><p>hasOwnProperty 用来判断某个属性 是在实例上还是在原型对象上.</p>
-</li>
-<li><p>in 操作符 for in 对象的属性 in 操作符 不考虑是否在原型上.</p>
-</li>
-<li><p>for in 会遍历所有可以被枚举的属性,不论实在实例属性还是原型属性.</p>
-</li>
-<li><p>object.keys() 返回对象的可枚举属性的字符串数组 不包含原型的属性</p>
-</li>
-<li><p>Object.getOwnPropertyNames(); 所有属性 不论是否可以被枚举,会包含 constructor</p>
-</li>
-<li><p>Object.getOwnPropertySymbols() 只针对符号</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用来判断一个属性 是否在原型上。</span><br><span class="line"><span class="keyword">function</span> hasProtoypeProperty(<span class="keyword">object</span>,<span class="type">name</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="keyword">object</span>.hasOwnProperty(<span class="type">name</span>) &amp;&amp; (<span class="type">name</span> <span class="keyword">in</span> <span class="keyword">object</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p> for in , object.keys() 枚举顺序不确定</p>
-</li>
-<li><p> object.getOwnPropertyNames(), Object.getOwnPropertySymbols() ,object.assign() 顺序确定</p>
-</li>
-<li><p> 先升序枚举数值键,然后以插入顺序枚举字符串和符号</p>
-</li>
-<li><p> 对象迭代</p>
-</li>
-<li><p>object.keys(), object.entries(), object.values()</p>
-</li>
-</ol>
-<blockquote>
-<p> 创建一个新对象,并为指定原型. Object.create()</p>
-</blockquote>
-
+        
+          <a class="article-more-a" href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/#more">more >></a>
+        
       
 
       
@@ -318,7 +511,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">三座大山系列</a>
         		</li>
       		
 		</ul>
@@ -728,286 +921,6 @@
 
 
   
-    <article id="post-react双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">react双向绑定</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" class="archive-article-date">
-  	<time datetime="2021-04-15T14:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>双向绑定的定义：<br>Model绑定View，model数据变的话，View视图会跟着变。<br>View视图更新的话，会自动更新Model的状态。</p>
-        
-          <a class="article-more-a" href="/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">难点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS中原型链的理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/11/JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3/">JS中原型链的理解</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/11/JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-04-11T08:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><ol>
-<li><p>原型模式</p>
-<blockquote>
-<p>我们创建的每个函数都有一个prototype(原型)属性，这个属性是一个指针，指向一个对象。这这个对象的用途是包含有特定类型的所有实例共享的属性和方法。prototype就是通过调用构造函数而创建的那个实例的原型对象。可以让所有实例共享它包含的属性和方法。</p>
-</blockquote>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">Person(<span class="params">params</span>)</span> &#123;&#125;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.age = <span class="number">29</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.job = &#x27;Software Engineer&#x27;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span>prototype.sayName = <span class="keyword">function</span> <span class="literal">()</span> &#123;</span><br><span class="line">    alert(this.name)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person1 = <span class="keyword">new</span> <span class="constructor">Person()</span>;</span><br><span class="line">person1.say<span class="constructor">Name()</span>; <span class="comment">// </span></span><br><span class="line">var person2 = <span class="keyword">new</span> <span class="constructor">Person()</span>;</span><br><span class="line">person2.say<span class="constructor">Name()</span>;</span><br><span class="line">alert(person1.sayName<span class="operator"> == </span>person2.sayName)</span><br></pre></td></tr></table></figure></li></ol>
-        
-          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">对象</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS中function和箭头函数的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/">JS中function和箭头函数的区别</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2021-04-11T06:57:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>表现方式</p>
-<ul>
-<li><p>普通函数： function add(a,b){return a+b};</p>
-</li>
-<li><p>箭头函数：（a,b）=&gt;a+b;</p>
-</li>
-</ul>
-</li>
-<li><p>this指向</p>
-<ul>
-<li><p>普通函数： 内部的this，默认指向window，严格模式下指向undefined；</p>
-</li>
-<li><p>箭头函数：内部的this，与上一级作用域中的this指向同一个地方。</p></li></ul></li></ol>
-        
-          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1122,6 +1035,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">清除浮动</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
             
             <div class="clearfix"></div>

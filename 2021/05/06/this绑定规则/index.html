@@ -16,7 +16,7 @@
 <meta property="og:description" content="函数的执行过程中是通过调用位置决定this的绑定对象必须找到函数的调用位置，">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-06T02:28:01.000Z">
-<meta property="article:modified_time" content="2021-05-06T02:36:38.166Z">
+<meta property="article:modified_time" content="2021-08-08T04:54:36.947Z">
 <meta property="article:author" content="Liu Xin">
 <meta property="article:tag" content="对象">
 <meta name="twitter:card" content="summary">
@@ -200,6 +200,11 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">    <span class="built_in">console</span>.log(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo.call(obj, <span class="string">&quot;b&quot;</span>)</span><br><span class="line"><span class="comment">// 如果 第一个参数是原始值，会被转化为对象形式</span></span><br><span class="line"><span class="comment">// 硬绑定的函数，不能在修改他的this</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4-new-绑定"><a href="#4-new-绑定" class="headerlink" title="4.new 绑定"></a>4.new 绑定</h3><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">something = <span class="keyword">new</span> <span class="type">MyClass</span>()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span></span>(a) &#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> <span class="type">foo</span>(<span class="number">2</span>)</span><br><span class="line">console.log(bar.a) <span class="comment">//2 </span></span><br><span class="line"><span class="number">1.</span> 创建(构造)一个全新的对象</span><br><span class="line"><span class="number">2.</span> 新对象执行[[Prototype]]链接</span><br><span class="line"><span class="number">3.</span> 新对象会被绑定到函数调用的<span class="built_in">this</span></span><br><span class="line"><span class="number">4.</span> 如果函数没有返回其他对象，那么<span class="keyword">new</span><span class="type"></span>表达式中的函数调用回自动返回这个新对象</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重点:<br>1.this既不指向自己,也不指向函数的词法作用域<br>2.this实际上是在函数被调用时发生绑定,它指向什么完全却决于函数在哪里被调用.</p>
+</blockquote>
+
       
 
       
@@ -468,6 +473,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">清除浮动</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
             
             <div class="clearfix"></div>
