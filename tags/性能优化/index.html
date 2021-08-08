@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>js三座大山(作用域及闭包) | Liu Xin的博客</title>
+  <title>Tag: 性能优化 | Liu Xin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编译的原理1.分词&#x2F;词法解析  将由字符组成的字符串分解成有意义的代码块。  2.解析&#x2F;语法解析  将此法单元流(数组)转换为一个由元素逐级嵌套所组成的代表了程序语法的结构的树。抽象语法树  3.代码生成  将AST 转换为可执行代码的过程 被称为代码生成。 与语言，及其平台息息相关。  javascript 的编译 发生在代码执行前的几微秒(甚至更短)。 引擎 编译器 作用域   1.在编译时处">
-<meta property="og:type" content="article">
-<meta property="og:title" content="js三座大山(作用域及闭包)">
-<meta property="og:url" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/index.html">
+  <meta name="description" content="本科学历,目前就职于央视,擅长前后端技术栈">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Liu Xin的博客">
+<meta property="og:url" content="http://example.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="Liu Xin的博客">
-<meta property="og:description" content="编译的原理1.分词&#x2F;词法解析  将由字符组成的字符串分解成有意义的代码块。  2.解析&#x2F;语法解析  将此法单元流(数组)转换为一个由元素逐级嵌套所组成的代表了程序语法的结构的树。抽象语法树  3.代码生成  将AST 转换为可执行代码的过程 被称为代码生成。 与语言，及其平台息息相关。  javascript 的编译 发生在代码执行前的几微秒(甚至更短)。 引擎 编译器 作用域   1.在编译时处">
+<meta property="og:description" content="本科学历,目前就职于央视,擅长前后端技术栈">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/1.png">
-<meta property="article:published_time" content="2021-08-06T08:38:08.000Z">
-<meta property="article:modified_time" content="2021-08-06T10:39:38.456Z">
 <meta property="article:author" content="Liu Xin">
-<meta property="article:tag" content="三座大山系列">
+<meta property="article:tag" content="前端,js,jquery,javascript,html5,开发者,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Liu Xin的博客" type="application/atom+xml">
   
@@ -167,116 +163,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-js三座大山-作用域及闭包(一)" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      js三座大山(作用域及闭包)
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2021-08-08T09:35:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
     </h1>
   
 
-        
-        <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/" class="archive-article-date">
-  	<time datetime="2021-08-06T08:38:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="编译的原理"><a href="#编译的原理" class="headerlink" title="编译的原理"></a>编译的原理</h2><p>1.分词/词法解析</p>
-<blockquote>
-<p>将由字符组成的字符串分解成有意义的代码块。</p>
-</blockquote>
-<p>2.解析/语法解析</p>
-<blockquote>
-<p>将此法单元流(数组)转换为一个由元素逐级嵌套所组成的代表了程序语法的结构的树。抽象语法树</p>
-</blockquote>
-<p>3.代码生成</p>
-<blockquote>
-<p>将AST 转换为可执行代码的过程 被称为代码生成。 与语言，及其平台息息相关。</p>
-</blockquote>
-<p>javascript 的编译 发生在代码执行前的几微秒(甚至更短)。</p>
-<p>引擎
-编译器
-作用域</p>
-<blockquote>
-<p> 1.在编译时处理 2.引擎在运行时处理</p>
-</blockquote>
-<span id="more"></span>
-
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = <span class="number">2</span>;</span><br><span class="line"><span class="number">1</span>. 编译器会询问作用域是否已经有一个该名称的变量,如果是,忽略该声明,否则 会要求作用域在当前作用域的集合 声明一个新的变量a.</span><br><span class="line"><span class="number">2</span>. 接下来 编译器会生成js引擎运行时所需要的代码. 这些代码被用来处理a=<span class="number">2</span> 这个赋值操作.</span><br><span class="line">引擎运行时会首先询问作用域,在当前的作用域是否存在一个叫做a的变量.如果是,引擎会使用这个变量.</span><br><span class="line">如果否,引擎会继续查找该变量.</span><br></pre></td></tr></table></figure>
-<p>引擎会进行 LHS查询,RHS查询.
-LHS查询 
-赋值操作左侧进行LHS查询,试图找到变量的容器本身,从而可以对其赋值. 赋值操作的目标是谁.</p>
-<p>RHS查询
-赋值操作右侧进行RHS查询,查找某个变量的值. 赋值操作操作的源头是谁.</p>
-<p>函数同时进行 声明和值的定义.</p>
-<p>LHS 会因查询失败,抛出ReferenceError 错误.
-RHS 回因为 对非函数类型进行函数调用,或null,undefined 类型的值的属性,抛出 TypeError</p>
-<h3 id="作用域嵌套-规则"><a href="#作用域嵌套-规则" class="headerlink" title="作用域嵌套 规则"></a>作用域嵌套 规则</h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(a)</span><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    var b = a * 2;</span></span></span><br><span class="line"><span class="function"><span class="comment">    function too(c)&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">        console.log(a,b,c);</span></span></span><br><span class="line"><span class="function"><span class="comment">    &#125;</span></span></span><br><span class="line"><span class="function">    <span class="title">too</span><span class="params">(b*3)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"><span class="title">foo</span><span class="params">(2)</span>;</span> <span class="comment">// 2,4,12</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/1.png" alt="作用域图"></p>
-<p>1.查找规则,从里面向外查找.
-2.欺骗词法 (a),eval; (b),with</p>
-<p>函数作用域,和块作用域</p>
-<p>1.块作用域的特点,隐藏内部实现.</p>
-<p>let 的优点
-1.垃圾回收.
-2.let循环,每一个迭代循环中,重新邦定</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/wxpay.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">三座大山系列</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -289,113 +217,17 @@ RHS 回因为 对非函数类型进行函数调用,或null,undefined 类型的�
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85(%E4%B8%80)/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          js三座大山(异步和单线程)
-        
-      </div>
-    </a>
   
   
-    <a href="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js三座大山(原型与原型链)</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -418,9 +250,9 @@ RHS 回因为 对非函数类型进行函数调用,或null,undefined 类型的�
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

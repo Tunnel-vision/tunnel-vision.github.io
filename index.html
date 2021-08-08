@@ -165,6 +165,194 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前端性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2021-08-08T09:35:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h3><p>首先谈谈拿到服务端资源后浏览器渲染的流程：
+<img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/browerrender.jpg" alt="渲染过程"></p>
+<blockquote>
+<ol>
+<li>解析 HTML 文件，构建 DOM 树，同时浏览器主进程负责下载 CSS 文件</li>
+<li>CSS 文件下载完成，解析 CSS 文件成树形的数据结构，然后结合 DOM 树合并成 RenderObject 树</li>
+<li>布局 RenderObject 树 （Layout/reflow），负责 RenderObject 树中的元素的尺寸，位置等计算</li>
+<li>绘制 RenderObject 树 （paint），绘制页面的像素信息</li>
+<li>浏览器主进程将默认的图层和复合图层交给 GPU 进程，GPU 进程再将各个图层合成（composite），最后显示出页面</li>
+</ol>
+</blockquote>
+        
+          <a class="article-more-a" href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-中台的意义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/08/%E4%B8%AD%E5%8F%B0%E7%9A%84%E6%84%8F%E4%B9%89/">中台的意义</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/08/%E4%B8%AD%E5%8F%B0%E7%9A%84%E6%84%8F%E4%B9%89/" class="archive-article-date">
+  	<time datetime="2021-08-08T06:55:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>中台的分类</p>
+<p>1.业务中台
+2.技术中台
+3.数据中台
+4.算法中台</p>
+        
+          <a class="article-more-a" href="/2021/08/08/%E4%B8%AD%E5%8F%B0%E7%9A%84%E6%84%8F%E4%B9%89/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">中台</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/架构//" class="article-tag-list-link color3">架构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/08/%E4%B8%AD%E5%8F%B0%E7%9A%84%E6%84%8F%E4%B9%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-前端常见的知识汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,8 +373,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.为什么javascript是单线程<br>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
-
+        <ol>
+<li>浏览器</li>
+<li>html</li>
+<li>js</li>
+<li>css</li>
+</ol>
+        
+          <a class="article-more-a" href="/2021/08/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/#more">more >></a>
+        
       
 
       
@@ -373,7 +568,9 @@
 <p>将AST 转换为可执行代码的过程 被称为代码生成。 与语言，及其平台息息相关。</p>
 </blockquote>
 <p>javascript 的编译 发生在代码执行前的几微秒(甚至更短)。</p>
-<p>引擎<br>编译器<br>作用域</p>
+<p>引擎
+编译器
+作用域</p>
 <blockquote>
 <p> 1.在编译时处理 2.引擎在运行时处理</p>
 </blockquote>
@@ -556,7 +753,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 )<br>垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  )<br>水平垂直居中:</p>
+        <p>水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 )
+垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  )
+水平垂直居中:</p>
         
           <a class="article-more-a" href="/2021/05/24/css%E5%B1%85%E4%B8%AD/#more">more >></a>
         
@@ -643,7 +842,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>浮动的影响:<br>    1. 由于浮动元素脱离了文档流，所以父元素的高度无法被撑开，影响了与父元素同级的元素<br>    2. 与浮动元素同级的非浮动元素会跟随其后，因为浮动元素脱离文档流不占据原来的位置<br>    3. 如果该浮动元素不是第一个浮动元素，则该元素之前的元素也需要浮动，否则容易影响页面的结构显示</p>
+        <p>浮动的影响:
+    1. 由于浮动元素脱离了文档流，所以父元素的高度无法被撑开，影响了与父元素同级的元素
+    2. 与浮动元素同级的非浮动元素会跟随其后，因为浮动元素脱离文档流不占据原来的位置
+    3. 如果该浮动元素不是第一个浮动元素，则该元素之前的元素也需要浮动，否则容易影响页面的结构显示</p>
         
           <a class="article-more-a" href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/#more">more >></a>
         
@@ -681,191 +883,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-this绑定规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">this绑定规则</a>
-    </h1>
-  
-
-        
-        <a href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/" class="archive-article-date">
-  	<time datetime="2021-05-06T02:28:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>函数的执行过程中是通过调用位置决定this的绑定对象<br>必须找到函数的调用位置，</p>
-        
-          <a class="article-more-a" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">对象</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS函数定义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/">JS函数定义</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/" class="archive-article-date">
-  	<time datetime="2021-04-20T09:24:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="3种函数定义"><a href="#3种函数定义" class="headerlink" title="3种函数定义"></a>3种函数定义</h3><ol>
-<li><p>函数关键字<br> function fn(x){</p>
-<pre><code> alert(x)
-</code></pre>
-<p> }</p>
-</li>
-<li><p>函数字面量<br> var fn = function(x){</p>
-<pre><code> alert(x)
-</code></pre>
-<p> }</p>
-</li>
-<li><p>Function()构造函数<br> var fn = new Function(‘x’,alert(x))</p>
-</li>
-</ol>
-<h3 id="四种调用方式"><a href="#四种调用方式" class="headerlink" title="四种调用方式"></a>四种调用方式</h3>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/20/JS%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/">展开全文 >></a>
         </p>
       
 
@@ -1004,10 +1021,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">难点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">清除浮动</a>
               </li>
              
@@ -1016,7 +1029,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">难点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">中台</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
             
             <div class="clearfix"></div>
