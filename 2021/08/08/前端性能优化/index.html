@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_spring.jpg">
 <meta property="og:image" content="http://example.com/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_swr.jpg">
 <meta property="article:published_time" content="2021-08-08T09:35:19.000Z">
-<meta property="article:modified_time" content="2021-08-08T13:14:56.399Z">
+<meta property="article:modified_time" content="2021-08-08T13:24:53.739Z">
 <meta property="article:author" content="Liu Xin">
 <meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
@@ -311,14 +311,14 @@ useContext</p>
 <li>精确判断更新的时机和范围</li>
 </ol>
 <p>a) debounce、throttle 优化频繁触发的回调
-在搜索组件中，当 input 中内容修改时就触发搜索回调。当组件能很快处理搜索结果时，用户不会感觉到输入延迟。
-<img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/throttle.jpg" alt="防抖和节流">
-b)懒加载
+在搜索组件中，当 input 中内容修改时就触发搜索回调。当组件能很快处理搜索结果时，用户不会感觉到输入延迟。</p>
+<p><img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/throttle.jpg" alt="防抖和节流"></p>
+<p>b)懒加载
 在 SPA 中，懒加载优化一般用于从一个路由跳转到另一个路由。</p>
 <p>还可用于用户操作后才展示的复杂组件，比如点击按钮后展示的弹窗模块（大数据量弹窗）。</p>
 <p>在这些场景下，结合 Code Split 收益较高。懒加载的实现是通过 Webpack 的动态导入和 React.lazy 方法。</p>
-<p>实现懒加载优化时，不仅要考虑加载态，还需要对加载失败进行容错处理。
-<img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/lazy.jpg" alt="懒加载"></p>
+<p>实现懒加载优化时，不仅要考虑加载态，还需要对加载失败进行容错处理。</p>
+<p><img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/lazy.jpg" alt="懒加载"></p>
 <p>c) 懒渲染</p>
 <p>懒渲染指当组件进入或即将进入可视区域时才渲染组件。常见的组件 Modal/Drawer 等，当 visible 属性为 true 时才渲染组件内容，也可以认为是懒渲染的一种实现。懒渲染的使用场景有：</p>
 <p>页面中出现多次的组件，且组件渲染费时、或者组件中含有接口请求。如果渲染多个带有请求的组件，由于浏览器限制了同域名下并发请求的数量，就可能会阻塞可见区域内的其他组件中的请求，导致可见区域的内容被延迟展示。
@@ -329,8 +329,8 @@ b)懒加载
 虚拟列表是懒渲染的一种特殊场景。虚拟列表的组件有 react-window和 react-virtualized，它们都是同一个作者开发的。</p>
 <p>react-window 是 react-virtualized 的轻量版本，其 API 和文档更加友好。推荐使用 react-window，只需要计算每项的高度即可</p>
 <p>如果每项的高度是变化的，可给 itemSize 参数传一个函数。</p>
-<p>所以在开发过程中，遇到接口返回的是所有数据时，需提前预防这类会有展示的性能瓶颈的需求时，推荐使用虚拟列表优化。使用示例如下
-<img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_window.jpg" alt="虚拟列表"></p>
+<p>所以在开发过程中，遇到接口返回的是所有数据时，需提前预防这类会有展示的性能瓶颈的需求时，推荐使用虚拟列表优化。使用示例如下</p>
+<p><img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_window.jpg" alt="虚拟列表"></p>
 <p><a target="_blank" rel="noopener" href="https://react-window.vercel.app/#/examples/list/fixed-size">https://react-window.vercel.app/#/examples/list/fixed-size</a></p>
 <p>e) 动画库直接修改 DOM 属性，跳过组件 Render 阶段
 这个优化在业务中应该用不上，但还是非常值得学习的，将来可以应用到组件库中。</p>
@@ -342,9 +342,9 @@ b)懒加载
 <p>如果在提交阶段钩子函数中更新组件 State，会再次触发组件的更新流程，造成两倍耗时。一般在提交阶段的钩子中更新组件状态的场景有：</p>
 <p>计算并更新组件的派生状态（Derived State）。在该场景中，类组件应使用 getDerivedStateFromProps 钩子方法代替，函数组件应使用函数调用时执行 setState的方式代替。使用上面两种方式后，React 会将新状态和派生状态在一次更新内完成。
 根据 DOM 信息，修改组件状态。在该场景中，除非想办法不依赖 DOM 信息，否则两次更新过程是少不了的，就只能用其他优化技巧了。
-use-swr 的源码就使用了该优化技巧。当某个接口存在缓存数据时，use-swr 会先使用该接口的缓存数据，并在 requestIdleCallback 时再重新发起请求，获取最新数据。模拟一个swr
-<img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_swr.jpg" alt="react_swr">
-它的第二个参数 deps，是为了在请求带有参数时，如果参数改变了就重新发起请求。
+use-swr 的源码就使用了该优化技巧。当某个接口存在缓存数据时，use-swr 会先使用该接口的缓存数据，并在 requestIdleCallback 时再重新发起请求，获取最新数据。模拟一个swr</p>
+<p><img src="/2021/08/08/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/react_swr.jpg" alt="react_swr"></p>
+<p>它的第二个参数 deps，是为了在请求带有参数时，如果参数改变了就重新发起请求。
 暴露给调用方的 fetch 函数，可以应对主动刷新的场景，比如页面上的刷新按钮。
 如果 use-swr 不做该优化的话，就会在 useLayoutEffect 中触发重新验证并设置 isValidating 状态为 true·，引起组件的更新流程，造成性能损失</p>
 <p>2019年，实现 React 动画的 5 种最常用方式
