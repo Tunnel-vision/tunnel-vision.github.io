@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/threadprogress.jpg">
 <meta property="og:image" content="http://example.com/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/eventLoop.png">
 <meta property="article:published_time" content="2021-08-06T08:38:26.000Z">
-<meta property="article:modified_time" content="2021-08-08T04:47:17.480Z">
+<meta property="article:modified_time" content="2021-08-08T06:27:36.392Z">
 <meta property="article:author" content="Liu Xin">
 <meta property="article:tag" content="三座大山系列">
 <meta name="twitter:card" content="summary">
@@ -192,6 +192,8 @@
 <p>（2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</p>
 <p>（3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
 <p>（4）主线程不断重复上面的第三步。</p>
+<span id="more"></span>
+
 <p>流程图<br><img src="/2021/08/06/js%E4%B8%89%E5%BA%A7%E5%A4%A7%E5%B1%B1-%E5%BC%82%E6%AD%A5%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B/threadprogress.jpg" alt="线程的运行图"></p>
 <p>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。</p>
 <h3 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h3><p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
