@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 202/5 | Liu Xin的博客</title>
+  <title>css居中 | Liu Xin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本科学历,目前就职于央视,擅长前后端技术栈">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Liu Xin的博客">
-<meta property="og:url" content="http://example.com/archives/202/05/index.html">
+  <meta name="description" content="水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 ) 垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  ) 水平垂直居中:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css居中">
+<meta property="og:url" content="http://example.com/2020/05/24/css%E5%B1%85%E4%B8%AD/index.html">
 <meta property="og:site_name" content="Liu Xin的博客">
-<meta property="og:description" content="本科学历,目前就职于央视,擅长前后端技术栈">
+<meta property="og:description" content="水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 ) 垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  ) 水平垂直居中:">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-24T06:32:12.000Z">
+<meta property="article:modified_time" content="2021-08-09T08:10:25.948Z">
 <meta property="article:author" content="Liu Xin">
-<meta property="article:tag" content="前端,js,jquery,javascript,html5,开发者,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+<meta property="article:tag" content="清除浮动">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Liu Xin的博客" type="application/atom+xml">
@@ -163,36 +165,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-css居中" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/202" class="archive-year">202</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/0202/05/24/css%E5%B1%85%E4%B8%AD/" class="archive-article-date">
-  	<time datetime="0202-05-24T06:26:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>0202-05-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/0202/05/24/css%E5%B1%85%E4%B8%AD/">css居中</a>
+    <h1 class="article-title" itemprop="name">
+      css居中
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/05/24/css%E5%B1%85%E4%B8%AD/" class="archive-article-date">
+  	<time datetime="2020-05-24T06:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>水平居中: 行内元素(text-align),块元素(1.宽度确定 margin|定位来解决,2.宽度不确定 定位来解决|flexbox模型 )
+垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  )
+水平垂直居中:</p>
+<span id="more"></span>
+
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><ol>
+<li>行内元素 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    #father &#123;</span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">        <span class="attribute">text-align</span>: center;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #son &#123;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是行内元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>块级元素<ol>
+<li>宽度定长(margin 布局) <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: gray;</span></span><br><span class="line"><span class="css">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line"><span class="css">    <span class="attribute">text-align</span>: center;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块级元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>宽度不定长(改为行内元素或者行内块元素)<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#father</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: skyblue;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#son</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: green;</span><br><span class="line">    <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="selector-tag">div</span> id=<span class="string">&quot;father&quot;</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">div</span> id=<span class="string">&quot;son&quot;</span>&gt;我是块级元素&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>使用定位属性<ol>
+<li>定宽度(left 50% margin-left /2 ,transformX: -/2) <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="css">    <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateX(-150px); */</span></span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateX(-50%); */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">margin-left</span>: -<span class="number">150px</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块级元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>不定宽度 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="css">    <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>); </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块级元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<ol start="4">
+<li>使用flexbox 布局 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    #father &#123;</span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">        <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #son &#123;</span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: green;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块级元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><ol>
+<li><p>行内元素(line-height = 盒子的高度)</p>
+<ol>
+<li>单行<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    #father &#123;</span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">        <span class="attribute">line-height</span>: <span class="number">300px</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #son &#123;</span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: green;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是行内元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>多行 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="comment">/* line-height: 300px; */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">display</span>: table-cell;</span></span><br><span class="line"><span class="css">    <span class="attribute">vertical-align</span>: middle;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是行内元素我是行内元素我是行内元素我是行内元素我是行内元素我是行内元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>块级元素</p>
+<ol>
+<li>高度定长 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  <span class="selector-id">#father</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: skyblue;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#son</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">transform</span>: translateY(-<span class="number">100px</span>);</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: green;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> id=<span class="string">&quot;father&quot;</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">div</span> id=<span class="string">&quot;son&quot;</span>&gt;我是块元素&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
+<li>高度不定长 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateY(-50%); */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">50%</span>);</span></span><br><span class="line"><span class="css">    <span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>使用flexbox 布局</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    #father &#123;</span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">        <span class="attribute">align-items</span>: center;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #son &#123;</span><br><span class="line"><span class="css">        <span class="comment">/* transform: translateY(-50%); */</span></span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: green;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h3><pre><code>1. 已知高度和宽度
+    1. 
+    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="css">    <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">right</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">margin</span>: auto;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    2. 利用 postion 和 margin
+    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="css">    <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateX(-50%) translateY(-50%) */</span></span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateX(-100px) translateY(-100px) */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">margin-top</span>: -<span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+2. 位置高度和宽度不确定
+    1. 利用transform 和 postion
+    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">position</span>: relative;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line">    /* width: 200px;</span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">200px</span>; */</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="css">    <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>) <span class="built_in">translateY</span>(-<span class="number">50%</span>);</span></span><br><span class="line"><span class="css">    <span class="comment">/* transform: translateX(-100px) translateY(-100px) */</span></span></span><br><span class="line"><span class="css">    <span class="comment">/* margin-top: -100px; */</span></span></span><br><span class="line"><span class="css">    <span class="comment">/* margin-left: -100px; */</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    2. 利用flexbox 布局
+    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">#father &#123;</span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: skyblue;</span></span><br><span class="line"><span class="css">    <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">    <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="css">    <span class="attribute">justify-content</span>: center;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#son &#123;</span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: green;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;son&quot;</span>&gt;</span>我是块元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</code></pre>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wxpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -204,7 +283,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -217,17 +296,113 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/05/24/css%E5%B1%85%E4%B8%AD/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/08/08/%E4%B8%AD%E5%8F%B0%E7%9A%84%E6%84%8F%E4%B9%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          中台的意义
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2020/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">清除浮动</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -250,8 +425,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

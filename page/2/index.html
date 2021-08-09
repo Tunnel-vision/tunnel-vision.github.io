@@ -165,40 +165,43 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JS中function和箭头函数的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/06/hello-world/">Hello World</a>
+      <a class="article-title" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/">JS中function和箭头函数的区别</a>
     </h1>
   
 
         
-        <a href="/2021/04/06/hello-world/" class="archive-article-date">
-  	<time datetime="2021-04-06T11:50:54.867Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-06</time>
+        <a href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2021-04-11T06:57:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        <ol>
+<li><p>表现方式</p>
+<ul>
+<li><p>普通函数： function add(a,b){return a+b};</p>
+</li>
+<li><p>箭头函数：（a,b）=&gt;a+b;</p>
+</li>
+</ul>
+</li>
+<li><p>this指向</p>
+<ul>
+<li><p>普通函数： 内部的this，默认指向window，严格模式下指向undefined；</p>
+</li>
+<li><p>箭头函数：内部的this，与上一级作用域中的this指向同一个地方。</p></li></ul></li></ol>
+        
+          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/#more">more >></a>
+        
       
 
       
@@ -206,11 +209,125 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/06/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/11/JS%E4%B8%ADfunction%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-前端常见的知识汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/">前端常见的知识汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/" class="archive-article-date">
+  	<time datetime="2021-04-06T10:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>浏览器</li>
+<li>html</li>
+<li>js</li>
+<li>css</li>
+</ol>
+        
+          <a class="article-more-a" href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/">展开全文 >></a>
         </p>
       
 
@@ -421,291 +538,6 @@
 
 
   
-    <article id="post-this绑定规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">this绑定规则</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/" class="archive-article-date">
-  	<time datetime="2020-05-06T02:28:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>函数的执行过程中是通过调用位置决定this的绑定对象
-必须找到函数的调用位置，</p>
-        
-          <a class="article-more-a" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">对象</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-react双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">react双向绑定</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" class="archive-article-date">
-  	<time datetime="2020-04-15T14:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>双向绑定的定义：
-Model绑定View，model数据变的话，View视图会跟着变。
-View视图更新的话，会自动更新Model的状态。</p>
-        
-          <a class="article-more-a" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">难点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo使用总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Hexo使用总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-04-06T11:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="quick-start"><a href="#quick-start" class="headerlink" title="quick start"></a>quick start</h3><pre><code>1. git clone master 分支
-2. npm install 
-3. hexo clean // 清理静态文件
-4. hexo g // 生成静态文件
-5. hexo d // 部署
-</code></pre>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>缺失模块。请确保node版本大于6.2</li>
-<li>在博客根目录（注意不是yilia根目录）执行以下命令：npm i hexo-generator-json-content –save</li>
-<li>在根目录_config.yml里添加配置
-jsonContent:
-meta: false
-pages: false
-posts:
-title: true
-date: true
-path: true
-text: false
-raw: false
-content: false
-slug: false
-updated: false
-comments: false
-link: false
-permalink: false
-excerpt: false
-categories: false
-tags: true</li>
-</ol>
-<h3 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h3><ol>
-<li>npm install hexo-asset-image –save</li>
-<li>在_config.yml配置文件中，修改为 post_asset_folder: true</li>
-</ol>
-<h3 id="markdown语法失效"><a href="#markdown语法失效" class="headerlink" title="markdown语法失效"></a>markdown语法失效</h3><pre><code>1. [解决办法](https://whatsid.me/2019/08/21/hexo-markdown-syntax/)
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-css居中" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -713,13 +545,13 @@ tags: true</li>
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/0202/05/24/css%E5%B1%85%E4%B8%AD/">css居中</a>
+      <a class="article-title" href="/2020/05/24/css%E5%B1%85%E4%B8%AD/">css居中</a>
     </h1>
   
 
         
-        <a href="/0202/05/24/css%E5%B1%85%E4%B8%AD/" class="archive-article-date">
-  	<time datetime="0202-05-24T06:26:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>0202-05-24</time>
+        <a href="/2020/05/24/css%E5%B1%85%E4%B8%AD/" class="archive-article-date">
+  	<time datetime="2020-05-24T06:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
 </a>
         
       </header>
@@ -730,7 +562,7 @@ tags: true</li>
 垂直居中: 行内元素(line-height)|多行 display:table-cell,vertical-align: middle,块元素(1.高度确定 定位来解决|  )
 水平垂直居中:</p>
         
-          <a class="article-more-a" href="/0202/05/24/css%E5%B1%85%E4%B8%AD/#more">more >></a>
+          <a class="article-more-a" href="/2020/05/24/css%E5%B1%85%E4%B8%AD/#more">more >></a>
         
       
 
@@ -765,7 +597,7 @@ tags: true</li>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/0202/05/24/css%E5%B1%85%E4%B8%AD/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/05/24/css%E5%B1%85%E4%B8%AD/">展开全文 >></a>
         </p>
       
 
@@ -797,7 +629,7 @@ tags: true</li>
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
