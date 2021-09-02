@@ -165,32 +165,207 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-清除浮动" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-https的原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/">清除浮动</a>
+      <a class="article-title" href="/2021/08/12/https%E7%9A%84%E5%8E%9F%E7%90%86/">https的原理</a>
     </h1>
   
 
         
-        <a href="/2020/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" class="archive-article-date">
-  	<time datetime="2020-05-21T02:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
+        <a href="/2021/08/12/https%E7%9A%84%E5%8E%9F%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-08-12T09:19:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>浮动的影响:
-    1. 由于浮动元素脱离了文档流，所以父元素的高度无法被撑开，影响了与父元素同级的元素
-    2. 与浮动元素同级的非浮动元素会跟随其后，因为浮动元素脱离文档流不占据原来的位置
-    3. 如果该浮动元素不是第一个浮动元素，则该元素之前的元素也需要浮动，否则容易影响页面的结构显示</p>
+        <h2 id="Https原理及其流程"><a href="#Https原理及其流程" class="headerlink" title="Https原理及其流程"></a>Https原理及其流程</h2><h3 id="HTTPS通信过程"><a href="#HTTPS通信过程" class="headerlink" title="HTTPS通信过程"></a>HTTPS通信过程</h3><p>HTTPS协议 = HTTP协议 + SSL/TLS协议，在HTTPS数据传输的过程中，需要用SSL/TLS对数据进行加密和解密，需要用HTTP对加密后的数据进行传输，由此可以看出HTTPS是由HTTP和SSL/TLS一起合作完成的。</p>
+<p>SSL的全称是Secure Sockets Layer，即安全套接层协议，是为网络通信提供安全及数据完整性的一种安全协议。SSL协议在1994年被Netscape发明，后来各个浏览器均支持SSL，其最新的版本是3.0</p>
+<p>TLS的全称是Transport Layer Security，即安全传输层协议，最新版本的TLS（Transport Layer Security，传输层安全协议）是IETF（Internet Engineering Task Force，Internet工程任务组）制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本。在TLS与SSL3.0之间存在着显著的差别，主要是它们所支持的加密算法不同，所以TLS与SSL3.0不能互操作。虽然TLS与SSL3.0在加密算法上不同，但是在我们理解HTTPS的过程中，我们可以把SSL和TLS看做是同一个协议。</p>
+<p>HTTPS为了兼顾安全与效率，同时使用了对称加密和非对称加密。数据是被对称加密传输的，对称加密过程需要客户端的一个密钥，为了确保能把该密钥安全传输到服务器端，采用非对称加密对该密钥进行加密传输，总的来说，对数据进行对称加密，对称加密所要使用的密钥通过非对称加密传输。</p>
+<p><img src="/2021/08/12/https%E7%9A%84%E5%8E%9F%E7%90%86/1.png" alt="线程的运行图"></p>
+<p>HTTPS在传输的过程中会涉及到三个密钥：</p>
+<p>服务器端的公钥和私钥，用来进行非对称加密</p>
+<p>客户端生成的随机密钥，用来进行对称加密</p>
+<p>一个HTTPS请求实际上包含了两次HTTP传输，可以细分为8步。
+1.客户端向服务器发起HTTPS请求，连接到服务器的443端口</p>
+<p>2.服务器端有一个密钥对，即公钥和私钥，是用来进行非对称加密使用的，服务器端保存着私钥，不能将其泄露，公钥可以发送给任何人。</p>
+<p>3.服务器将自己的公钥发送给客户端。</p>
+<p>4.客户端收到服务器端的证书之后，会对证书进行检查，验证其合法性，如果发现发现证书有问题，那么HTTPS传输就无法继续。严格的说，这里应该是验证服务器发送的数字证书的合法性，关于客户端如何验证数字证书的合法性，下文会进行说明。如果公钥合格，那么客户端会生成一个随机值，这个随机值就是用于进行对称加密的密钥，我们将该密钥称之为client key，即客户端密钥，这样在概念上和服务器端的密钥容易进行区分。然后用服务器的公钥对客户端密钥进行非对称加密，这样客户端密钥就变成密文了，至此，HTTPS中的第一次HTTP请求结束。</p>
+<p>5.客户端会发起HTTPS中的第二个HTTP请求，将加密之后的客户端密钥发送给服务器。</p>
+<p>6.服务器接收到客户端发来的密文之后，会用自己的私钥对其进行非对称解密，解密之后的明文就是客户端密钥，然后用客户端密钥对数据进行对称加密，这样数据就变成了密文。</p>
+<p>7.然后服务器将加密后的密文发送给客户端。</p>
+<p>8.客户端收到服务器发送来的密文，用客户端密钥对其进行对称解密，得到服务器发送的数据。这样HTTPS中的第二个HTTP请求结束，整个HTTPS传输完成。</p>
+<blockquote>
+<p>参考:
+1.<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/14cd2c9d2cd2">https://www.jianshu.com/p/14cd2c9d2cd2</a></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">http/https</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/协议//" class="article-tag-list-link color3">协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/12/https%E7%9A%84%E5%8E%9F%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/2020/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-浏览器兼容性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7/">浏览器兼容性</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7/" class="archive-article-date">
+  	<time datetime="2021-08-11T02:53:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Flex布局" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/11/Flex%E5%B8%83%E5%B1%80/">Flex布局</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/11/Flex%E5%B8%83%E5%B1%80/" class="archive-article-date">
+  	<time datetime="2021-08-11T01:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>flex-direction
+flex-wrap
+flex-flow
+justify-content
+align-items
+align-content</p>
+<p>order
+flex-grow
+flex-shrink
+flex-basis
+flex
+algin-self</p>
+        
+          <a class="article-more-a" href="/2021/08/11/Flex%E5%B8%83%E5%B1%80/#more">more >></a>
         
       
 
@@ -204,7 +379,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">清除浮动</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">布局</a>
         		</li>
       		
 		</ul>
@@ -225,7 +400,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/21/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/Flex%E5%B8%83%E5%B1%80/">展开全文 >></a>
         </p>
       
 
@@ -255,30 +430,29 @@
 
 
   
-    <article id="post-this绑定规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-前端处理大数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">this绑定规则</a>
+      <a class="article-title" href="/2021/08/10/%E5%89%8D%E7%AB%AF%E5%A4%84%E7%90%86%E5%A4%A7%E6%95%B0%E6%8D%AE/">前端处理大数据</a>
     </h1>
   
 
         
-        <a href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/" class="archive-article-date">
-  	<time datetime="2020-05-06T02:28:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+        <a href="/2021/08/10/%E5%89%8D%E7%AB%AF%E5%A4%84%E7%90%86%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="archive-article-date">
+  	<time datetime="2021-08-10T04:45:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>函数的执行过程中是通过调用位置决定this的绑定对象
-必须找到函数的调用位置，</p>
+        <h3 id="前端处理较大数据量防止页面卡死的方法"><a href="#前端处理较大数据量防止页面卡死的方法" class="headerlink" title="前端处理较大数据量防止页面卡死的方法"></a>前端处理较大数据量防止页面卡死的方法</h3>
         
-          <a class="article-more-a" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/#more">more >></a>
+          <a class="article-more-a" href="/2021/08/10/%E5%89%8D%E7%AB%AF%E5%A4%84%E7%90%86%E5%A4%A7%E6%95%B0%E6%8D%AE/#more">more >></a>
         
       
 
@@ -292,7 +466,88 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">对象</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">优化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/10/%E5%89%8D%E7%AB%AF%E5%A4%84%E7%90%86%E5%A4%A7%E6%95%B0%E6%8D%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-webpack优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/07/webpack%E4%BC%98%E5%8C%96/">webpack优化</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/07/webpack%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2021-08-07T01:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h3><p>webpack 是一个模块打包器。webpack的主要目标是将 JavaScript 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。</p>
+<p>webpack的性能优化思路:</p>
+<ol>
+<li>打包速度</li>
+<li>打包体积</li>
+</ol>
+        
+          <a class="article-more-a" href="/2021/08/07/webpack%E4%BC%98%E5%8C%96/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webpack</a>
         		</li>
       		
 		</ul>
@@ -304,7 +559,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        			<a href="/categories/webpack//" class="article-tag-list-link color3">webpack</a>
         		</li>
       		
 		</ul>
@@ -313,279 +568,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/this%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-react双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">react双向绑定</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" class="archive-article-date">
-  	<time datetime="2020-04-15T14:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>双向绑定的定义：
-Model绑定View，model数据变的话，View视图会跟着变。
-View视图更新的话，会自动更新Model的状态。</p>
-        
-          <a class="article-more-a" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">难点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/15/react%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/24/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/24/hello-world/" class="archive-article-date">
-  	<time datetime="2020-01-24T06:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/24/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo使用总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Hexo使用总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-04-06T11:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="quick-start"><a href="#quick-start" class="headerlink" title="quick start"></a>quick start</h3><pre><code>1. git clone master 分支
-2. npm install 
-3. hexo clean // 清理静态文件
-4. hexo g // 生成静态文件
-5. hexo d // 部署
-</code></pre>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>缺失模块。请确保node版本大于6.2</li>
-<li>在博客根目录（注意不是yilia根目录）执行以下命令：npm i hexo-generator-json-content –save</li>
-<li>在根目录_config.yml里添加配置
-jsonContent:
-meta: false
-pages: false
-posts:
-title: true
-date: true
-path: true
-text: false
-raw: false
-content: false
-slug: false
-updated: false
-comments: false
-link: false
-permalink: false
-excerpt: false
-categories: false
-tags: true</li>
-</ol>
-<h3 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h3><ol>
-<li>npm install hexo-asset-image –save</li>
-<li>在_config.yml配置文件中，修改为 post_asset_folder: true</li>
-</ol>
-<h3 id="markdown语法失效"><a href="#markdown语法失效" class="headerlink" title="markdown语法失效"></a>markdown语法失效</h3><pre><code>1. [解决办法](https://whatsid.me/2019/08/21/hexo-markdown-syntax/)
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/06/Hexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/07/webpack%E4%BC%98%E5%8C%96/">展开全文 >></a>
         </p>
       
 
@@ -617,7 +600,7 @@ tags: true</li>
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -745,6 +728,46 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">布局</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">hooks</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">nextjs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">process</a>
               </li>
             
             <div class="clearfix"></div>
