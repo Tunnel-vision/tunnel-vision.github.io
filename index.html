@@ -165,31 +165,491 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-useRef和createRef" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-前端首屏加载优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/31/useRef%E5%92%8CcreateRef/">useRef和createRef</a>
+      <a class="article-title" href="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/">前端首屏加载优化</a>
     </h1>
   
 
         
-        <a href="/2021/08/31/useRef%E5%92%8CcreateRef/" class="archive-article-date">
-  	<time datetime="2021-08-31T07:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-31</time>
+        <a href="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2022-04-12T12:49:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
- useRef 在 react hook 中的作用, 正如官网说的, 它像一个变量, 类似于 this , 它就像一个盒子, 你可以存放任何东西.</p>
+        <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><pre><code>1. 包体积过大
+2. 对于低带宽的服务器，使用传统的http2.x的优化方案进行分包并非最优。
+3. 关键渲染路径中存在非必要资源。
+</code></pre>
+<h4 id="包体积过大"><a href="#包体积过大" class="headerlink" title="包体积过大"></a>包体积过大</h4><p>经过使用webpack-bundle-analyzer发现当前构建的包体积中每个页面的资源包存在很多没有引用的资源。经过排查发现由于在使用以下的引用方式。</p>
+<p>import { a, b } from ‘xxxx’;
+这种引用方式会导致webpack无法很好的去做treeshaking。导致会引入很多没有使用的代码块。经过统计，发现渲染需要用到资源经过gzip后高达1.26MB</p>
+<p>结论：es6引入代码块方式，会导致webpack无法很好的进行treeshaking，导致每个页面分包中存在大量无用代码，增加代码体积，导致资源文件加载时间长，从而影响页面的加载性能。</p>
+<h4 id="资源加载策略问题"><a href="#资源加载策略问题" class="headerlink" title="资源加载策略问题"></a>资源加载策略问题</h4><p>相信很多同学都知道，http1.x和2.x对前端静态资源加载的优化方式是不一样。在NextJS构建时，默认的分包策略会对代码的粒度拆分的比较细，所以导致最终资源输出时，但是因为用户服务器的带宽不高，导致如果使用http2.0的优化策略，会导致每个页面访问时，资源并发多，带宽被平分。导致每个下载进程能获取到的带宽极低。</p>
+<p>结论：因为用户的服务器带宽比较低，导致大量分包利用多路复用特性会导致每个下载进程的带宽资源被平分，导致每个资源加载很慢，从而影响页面的加载性能。</p>
+<h4 id="关键渲染路径中存在非必要资源"><a href="#关键渲染路径中存在非必要资源" class="headerlink" title="关键渲染路径中存在非必要资源"></a>关键渲染路径中存在非必要资源</h4><p>通过对加载资源分析，发现在html到达关键的资源加载之前，存在一些统计脚本的阻塞加载，以及一些外部资源（如：验证码，编辑器）等资源阻塞，导致关键的渲染资源没有第一时间触发加载。</p>
+<p>结论：html解析过程中，存在非首屏需要的资源进行加载，并形成阻塞，导致关键渲染路径过长，从而影响页面的加载性能</p>
+<h4 id="优化方案："><a href="#优化方案：" class="headerlink" title="优化方案："></a>优化方案：</h4><pre><code>导致页面加载慢的问题基本上已经定位出来，那么接下来需要针对用户的部署环境，做针对性的优化。
+</code></pre>
+<h4 id="包体积过大-1"><a href="#包体积过大-1" class="headerlink" title="包体积过大"></a>包体积过大</h4><p>对于es6的引用方式，webpack处理不友好，一开始提出要不约定引入方式，不要使用以下方式</p>
+<p>import { a, b } from ‘xxxx’;
+改为</p>
+<p>import a from ‘xxxx/dist/a’; import b from ‘xxxx/dist/b’;
+但是这种需要大量的成本，并且需要通过约定的方式，无法确保后续是否会出现人为原因编写错误导致包体积再次上升。通过调研，可以通过babel的插件babel-plugin-import实现等价的效果，并且在编译时自动转换。</p>
+<p>最终通过引入babel-plugin-import对所有引入做插接，让webpack能正确treeshaking。最终包体积从1.26MB减低到958KB，减少约24%的体积。</p>
+<h4 id="资源加载策略问题-1"><a href="#资源加载策略问题-1" class="headerlink" title="资源加载策略问题"></a>资源加载策略问题</h4><p>思考：</p>
+<p>受限于Discuz !Q的形态，静态资源都是存放在部署服务的服务器中，通过nginx做文件I/O的，访问页面所需要的资源数量过多会影响服务器性能。
+目前用户大都使用1Mbps的带宽，如果页面需要的资源数量过多，会导致服务器的并发数量过大，平分带宽，最终会拖低每个资源下载所能使用带宽。
+Discuz !Q是以安装包的形式提供给用户，用户无法自己重新编译，将资源存放到CDN中进行加速，并且减低服务器压力。
+针对以上思考，要在不能使用CDN，并且在1Mbps带宽下进行优化，那么我们就需要调整一个适当的分包策略，尽快降低服务器对于每一次访问的资源并发数量。</p>
+<p>每个页面需要的资源包数量控制在8个以下。
+每个包的大小尽量一致，相差不要过大，否则会出现短板效应。
+通过分析NextJS的源码，我们看到NextJS默认的分包模式是对http2.0的版本做了优化。<a target="_blank" rel="noopener" href="https://github.com/vercel/next.js/blob/62a4de9f8c23fe753650b78d4bd892d0081bc6b7/packages/next/build/webpack-config.ts">https://github.com/vercel/next.js/blob/62a4de9f8c23fe753650b78d4bd892d0081bc6b7/packages/next/build/webpack-config.ts</a></p>
+<p>经过多次尝试，目前分包的配置如下：
+{ chunks: ‘all’, // 异步加载的内容也会进行拆包处理 minChunks: 2, maxAsyncRequests: 8, // 并发同步加载数量，相当于拆包数量 minSize: 102400, maxSize: 102400 }
+通过配置webpack的分包模式，尽可能将包的体积统一在100kb左右（并不能准确限定在100kb，因为受到代码块的影响，可能会超出或不足）。同时将并发请求的包数量控制在8个以下。从而减低服务器带宽平分的影响。并且也能利用http协议的特性进行并发请求。</p>
+<h4 id="关键渲染路径中存在非必要资源-1"><a href="#关键渲染路径中存在非必要资源-1" class="headerlink" title="关键渲染路径中存在非必要资源"></a>关键渲染路径中存在非必要资源</h4><p>通过分析渲染路径，对统计代码全部改为script标签动态创建加载代码，实现后加载，让统计代码不再阻塞渲染。</p>
+<h4 id="一期优化成果"><a href="#一期优化成果" class="headerlink" title="一期优化成果"></a>一期优化成果</h4><p>经过以上优化，我们在1C2G 1Mbps的机器上进行测试，测试方式以10次取中位数进行统计。</p>
+<p><img src="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/2051649769259_.pic.jpg" alt="性能优化"></p>
+<p>从上述成果看到，还是有比较明显的提升，但是首次渲染需要8秒感觉还是有点高。还是想再优化一下。经过思考和复盘，一期的优化总体来说属于比较通用的优化，但是感觉还是能继续优化一下的。那么我们改变一下思路，是不是可以采用分段式渲染的方式，将首屏的打开速度再提升一个档次。</p>
+<h4 id="深入业务优化"><a href="#深入业务优化" class="headerlink" title="深入业务优化"></a>深入业务优化</h4><p>通过分析整个页面的加载，发现就算是js和css等静态资源加载完毕后，还是无法渲染有价值的内容，因为并不是静态页面的关系，代码运行时需要请求后端数据才能渲染出对应的组件，提供有价值的内容给用户。既然如此，我们能不能进一步减少首屏的代码体积，将依赖后端数据渲染的内容进行懒加载，这样就能既减少首屏所需要的代码量，也可以让懒加载的代码和数据请求同时进行。进一步优化首屏速度呢。
+<img src="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/v2.jpg" alt="v2"></p>
+<p>我们主要优化红框部分的流程。</p>
+<p>经过我们分析首页中每个模块的大小，发现首页业务代码中，帖子列表的代码体积比较大，因为帖子列表中设计很多能力：</p>
+<p>富文本
+音频
+视频
+虚拟列表
+…..
+而且整个首页高度依赖后端进行渲染，在无法提供SSR服务的前提下，而且也需要依赖js运行时获取接口数据才能正常渲染，首页中的首屏加载代码携带这些内容组件的代码将毫无意义，所以决定将红框中的组件代码全部进行懒加载处理。</p>
+<p>通过改写代码，提供友好的加载中交互，最终的样子如下：</p>
+<p><img src="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/v3_pic.jpg" alt="v3"></p>
+<p>懒加载组件资源完成后，并且数据已经返回立即进行渲染。</p>
+<h4 id="二期优化结论"><a href="#二期优化结论" class="headerlink" title="二期优化结论"></a>二期优化结论</h4><p>一期优化我们根据服务器性能和网络带宽，对资源的加载时机，分包策略，包体积等进行一次优化，属于比较通用的优化。但是需要进一步优化时，就需要结合业务，从业务层面找优化点。二期优化方案主要是对于首屏所需要的代码优先加载，对于页面中与接口数据高度依赖的模块，统一采用懒加载的方式，可以让用户更快的看到页面的呈现。</p>
+<p>测试方式和一期优化一致，我们在1C2G 1Mbps的机器上进行测试，测试方式以10次取中位数进行统计，最终的优化数据如下：</p>
+<p><img src="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/v4_pic.jpg" alt="v4_pic"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>一般以前对于自研项目的性能优化，更多会使用CDN，或者网络带宽不会存在如此极端的情况。虽然在整体的优化方案中，并没有什么非常黑科技的技术进行优化，但是最终的效果还是非常显著的。当中用到的所有方案和思路其实网上都是一搜一大把的，但是我们需要结合实际场景，有时候常规的优化方式，在特殊的情况下，或许不是最优解。例如利用多路复用的特性，在带宽低的机器上，有时候可能会导致加载更慢。优化方案没有一成不变的方案，结合实际，灵活运用各种优化方案搭配使用，才是唯一出路。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113864878">https://zhuanlan.zhihu.com/p/113864878</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/434531406">https://zhuanlan.zhihu.com/p/434531406</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浏览器</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/12/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/2021/08/31/useRef%E5%92%8CcreateRef/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
         
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Promise异步与性能问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/Promise%E5%BC%82%E6%AD%A5%E4%B8%8E%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/">Promise异步与性能问题</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/Promise%E5%BC%82%E6%AD%A5%E4%B8%8E%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2022-04-11T11:05:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在循环里如何使用-async-和-await"><a href="#在循环里如何使用-async-和-await" class="headerlink" title="在循环里如何使用 async 和 await"></a>在循环里如何使用 async 和 await</h2><h3 id="for"><a href="#for" class="headerlink" title="for"></a>for</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">promise</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript//" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/11/Promise%E5%BC%82%E6%AD%A5%E4%B8%8E%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-d3-learn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/d3-learn/">d3-learn</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/d3-learn/" class="archive-article-date">
+  	<time datetime="2022-04-11T09:00:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>D3</p>
+<ol>
+<li><p>常见属性</p>
+<ol>
+<li>id,class</li>
+<li>x,y cx,cy(表示园的横坐标和纵坐标)</li>
+<li>fill(里面填充的颜色), stroke(外轮廓的颜色)</li>
+<li>Height,width(矩形的宽高) ,r (</li>
+<li>transform=&gt; translate,rotate,scale</li>
+</ol>
+</li>
+<li><p>Element.attr</p>
+<ol>
+<li>设置元素的属性 element.attr(“attr_name”,”attr_value”);</li>
+<li>获取元素的属性 element.attr(“attr_name”);</li>
+<li>DOM<ol>
+<li>父节点的属性会影响子节点</li>
+<li>子节点的属性会相对父节点</li>
+<li>活用 <g>节点。</g></li></ol></li></ol></li></ol>
+        
+          <a class="article-more-a" href="/2022/04/11/d3-learn/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/11/d3-learn/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-css知识整理-一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">css知识整理(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/" class="archive-article-date">
+  	<time datetime="2022-04-11T08:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>css 学习<ol>
+<li>font<ol>
+<li> font-normal font-weight font-size/line-height  “font-family”</li>
+</ol>
+</li>
+<li>文本<ol>
+<li>color</li>
+<li>text-align 水平对其方式</li>
+<li>text-decoration 装饰文本 none underline overline line-through</li>
+<li>Text-indent 文本缩紧</li>
+<li>line-heigh 行间距 上间距 文本高度 下间距</li>
+</ol>
+</li>
+<li> chrome 调试工具</li>
+<li>emmet 语法，zen coding<ol>
+<li><img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-1.png" alt="image-20211205201704102"></li>
+<li>div.app / div.#app 会快速生成元素</li>
+<li>快速格式化文档</li>
+</ol>
+</li>
+<li>复合选择器<ol>
+<li>后代选择器</li>
+<li>子类选择权</li>
+<li>并集选择器</li>
+<li>伪类选择器 ：<ol>
+<li>链接伪类 link visted active hover   LVHA</li>
+<li>选中的  :focus</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行内元素 块元素 行内块元素<ol>
+<li> <img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-2.png" alt="image-20211205205303026"></li>
+<li> p 里面不放 div</li>
+<li> a 也不放 div</li>
+<li> 显示转换 disply： block </li>
+<li> snipaste</li>
+<li> 文字垂直居中</li>
+<li>background-color，background-image， background-repeat，background-attachment，background-position<ol>
+<li><img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-3.png" alt="image-20211205211001061"></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>css 三大特性 层叠行 继承性 优先级<ol>
+<li>行高会继承</li>
+</ol>
+</li>
+<li>盒子模型本质<ol>
+<li>浮动 </li>
+<li>定位 </li>
+<li>border-collapse： collapse 合并相邻的边框</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">清除浮动</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/css//" class="article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hooks知识整理-一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">hooks知识整理(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/" class="archive-article-date">
+  	<time datetime="2022-04-11T07:44:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="CreateRef-和-UseRef-的区别"><a href="#CreateRef-和-UseRef-的区别" class="headerlink" title="CreateRef 和 UseRef 的区别"></a>CreateRef 和 UseRef 的区别</h3><pre><code>1. createRef每次渲染都会返回一个新的引用，而useRef每次都会返回相同的引用。
+2.  useRef 不仅仅是来管理的DOM ref的，它还相当于this。 可以存放任何变量。
+3. useRef 可以很好的解决闭包带来的不方便性，你可以在各种库中看到他的影子，比如 react-use 中的 useInterval , usePrevious 
+4. 当useRef的内容发生变化时，它不会通知您。更新.current 属性不会导致重新呈现，因为他一直是一个引用。
+</code></pre>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ul>
+<li><ol>
+<li>写的很好的插件。 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/yq7r1oror1?file=/App.js:2459-2467">https://codesandbox.io/s/yq7r1oror1?file=/App.js:2459-2467</a></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>createRef和useRef 的区别 <a target="_blank" rel="noopener" href="https://blog.csdn.net/frontend_frank/article/details/104243286">https://blog.csdn.net/frontend_frank/article/details/104243286</a></li>
+</ol>
+</li>
+</ul>
+
       
 
       
@@ -209,471 +669,10 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/react//" class="article-tag-list-link color1">react</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/31/useRef%E5%92%8CcreateRef/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nodejs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/29/nodejs/">nodejs</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/29/nodejs/" class="archive-article-date">
-  	<time datetime="2021-08-29T07:04:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>node 扑获错误的情况</p>
-<ol>
-<li>同步错误<ol>
-<li>直接throw new Error(“”)</li>
-</ol>
-</li>
-<li>异步错误<ol start="2">
-<li>通过异步回调,next(err),来扑获异步错误</li>
-</ol>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/29/nodejs/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nextjs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/20/nextjs/">nextjs</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/20/nextjs/" class="archive-article-date">
-  	<time datetime="2021-08-20T02:42:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>路由的预加载</li>
-<li>next部署</li>
-</ul>
-<ul>
-<li><h3 id="路由的预加载-只在生产环境有效果"><a href="#路由的预加载-只在生产环境有效果" class="headerlink" title="路由的预加载 只在生产环境有效果"></a>路由的预加载 只在生产环境有效果</h3></li>
-</ul>
-<ol>
-<li>标签添加prefetch属性,生产环境没用 Link<ul>
-<li>href<ul>
-<li>可以是字符串</li>
-<li>可以是对象 {pathname:’/about’,query:{name:’abc’}}</li>
-</ul>
-</li>
-<li>as<ul>
-<li>重命名</li>
-<li>路由传参 list/1</li>
-</ul>
-</li>
-<li>replace</li>
-<li>scroll</li>
-<li>passHref 强制Link将href发送其子项。默认为false</li>
-<li>Link子项是组件<ul>
-<li>如果Link的子项是一个组件需要React.forwardRef 去传递href.</li>
-<li>React.forwardRef是一个方法，参数是一个函数，参数的传参是props和ref</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>使用withRouter高阶组件，在组件中使用router.prefetch(“/dynamic”)<ul>
-<li>useRouter ReactHook<ul>
-<li>rouer.push(‘/about’,’/about/1’)</li>
-<li>router.push({pathname:’/about’,query:{name:’abc’}})</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Router<ul>
-<li>Router.push(‘/about’,’/about’)</li>
-<li>Rouer.push({pathname:’/about’,query:{name:’abc’}})</li>
-</ul>
-</li>
-<li>withRouer</li>
-</ul>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/08/20/nextjs/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">nextjs</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/20/nextjs/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-process对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/17/process%E5%AF%B9%E8%B1%A1/">process对象</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/17/process%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2021-08-17T07:10:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.属性
-    1.1 process.stuout
-    1.2 process.stdin
-    1.3 stderr
-    1.4 process.argv, process.excePath, process.execArgv
-    1.5 process.env</p>
-<ol start="2">
-<li><p>方法
- 2.1 process.cwd()
- 2.2 process.chdir()</p>
-</li>
-<li><p>process.nextTick()
- 3.1 process.exit()
- 3.2 process.on()
- 3.3 process.kill()</p>
-</li>
-<li><p>事件
- 4.1 exit事件
- 4.2 beforeExit事件
- 4.3 uncaughtException事件
- 4.4 信号事件</p>
-</li>
-<li><p>进程的退出码</p>
- <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>，正常退出</span><br><span class="line"><span class="number">1</span>，发生未捕获错误</span><br><span class="line"><span class="number">5</span>，V8执行错误</span><br><span class="line"><span class="number">8</span>，不正确的参数</span><br><span class="line"><span class="symbol">128 </span>+ 信号值，如果Node接受到退出信号（比如SIGKILL或SIGHUP），它的退出码就是<span class="number">128</span>加上信号值。由于<span class="number">128</span>的二进制形式是<span class="number">10000000</span>, 所以退出码的后七位就是信号值。</span><br></pre></td></tr></table></figure></li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/08/17/process%E5%AF%B9%E8%B1%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">process</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/nodejs//" class="article-tag-list-link color2">nodejs</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/17/process%E5%AF%B9%E8%B1%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CMD-AMD-COMMONJS-ES6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/15/CMD-AMD-COMMONJS-ES6/">CMD_AMD_COMMONJS_ES6</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/15/CMD-AMD-COMMONJS-ES6/" class="archive-article-date">
-  	<time datetime="2021-08-15T11:39:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="CMD-AMD-CommonJS-ES6"><a href="#CMD-AMD-CommonJS-ES6" class="headerlink" title="CMD AMD CommonJS ES6"></a>CMD AMD CommonJS ES6</h3><p>CMD </p>
-<ol>
-<li> 第一种使用exports导出<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//common.js</span></span><br><span class="line"><span class="comment">//使用define定义模块，require、exports、module是define自带的</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//定义导出的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">minus</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a - b</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用exports导出</span></span><br><span class="line">    <span class="built_in">exports</span>.minus = minus</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li>第二种使用module导出<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//common.js</span></span><br><span class="line"><span class="comment">//使用define定义模块，require、exports、module是define自带的</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//定义导出的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">minus</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> a - b</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 使用module.exports导出</span></span><br><span class="line">	<span class="built_in">module</span>.exports = &#123;</span><br><span class="line">		minus</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li>第三种使用return 返回<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//common.js</span></span><br><span class="line"><span class="comment">//使用define定义模块，require、exports、module是define自带的</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//定义导出的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">minus</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> a - b</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 使用return导出</span></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		minus</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-都可以用同一种方法导入<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let common= require(<span class="string">&#x27;./common&#x27;</span>) <span class="regexp">//</span> 文件相对路径</span><br><span class="line"><span class="regexp">//</span>调用减法的方法</span><br><span class="line">console.log(common.minus(<span class="number">5</span>,<span class="number">4</span>))</span><br><span class="line"><span class="regexp">//</span>结果：１</span><br></pre></td></tr></table></figure>
-amd<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>common.js</span><br><span class="line"><span class="regexp">//</span> define后使用[]的原因是没有依赖模块， 如果有使用，如：[<span class="string">&#x27;jquery&#x27;</span>]</span><br><span class="line">define([], <span class="keyword">function</span>()&#123;</span><br><span class="line">	<span class="regexp">//</span> 导出方法</span><br><span class="line">	return <span class="keyword">function</span>(a, b) &#123;</span><br><span class="line">		return a - b</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>导入方法，require方法中有三个参数</span><br><span class="line"><span class="regexp">//</span>require(模块依赖，类型为数组[依赖的地址或模块名称], 会掉函数)</span><br><span class="line"><span class="regexp">//</span> 回调函数中会接收到模块作为参数，如下minus</span><br><span class="line">require([<span class="string">&#x27;./common.js&#x27;</span>], <span class="keyword">function</span>(minus)&#123;</span><br><span class="line">	console.log(minus(<span class="number">5</span>,<span class="number">4</span>)) <span class="regexp">//</span>结果：<span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>commonJS</p>
-<p>commonjs使用模块化，经常用于后台 导入导出方法如下：</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//common.js</span></span><br><span class="line">module.<span class="keyword">exports</span> = <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span> <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">	return a-b</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> minus = <span class="built_in">require</span>(<span class="string">&#x27;./common.js&#x27;</span>)  <span class="comment">//文件相对路径</span></span><br><span class="line"><span class="built_in">console</span>.log(minus(<span class="number">5</span>,<span class="number">4</span>)) </span><br><span class="line"><span class="comment">// 结果： 1</span></span><br></pre></td></tr></table></figure>
-
-<p>es6
-第一种导入导出方式 export</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// common.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minus</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a-b</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用export，一定要使用&#123;&#125;导出，否则会报错</span></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">	minus</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>导入</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> import 后采用大括号导入，大括号中是变量名，变量名要跟导出的名称一致</span><br><span class="line"><span class="regexp">//</span> from 后跟文件文件路径 这里是相对路径</span><br><span class="line">import &#123;minus&#125; from <span class="string">&#x27;./common.js&#x27;</span></span><br><span class="line"><span class="regexp">//</span>调用方法</span><br><span class="line">minus(<span class="number">5</span>,<span class="number">4</span>)  <span class="regexp">//</span>结果：<span class="number">1</span></span><br><span class="line"><span class="regexp">//</span>另一种导入方式 意思就是全部导入 as为重命名为导入的变量重新取一个名字</span><br><span class="line">import * as common from <span class="string">&#x27;./common.js&#x27;</span></span><br><span class="line"><span class="regexp">//</span> 调用方式 </span><br><span class="line">common.minus(<span class="number">5</span>,<span class="number">4</span>) <span class="regexp">//</span>结果：<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>第二种导出方式 export default</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// common.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minus</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a-b</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用export default 后不用使用&#123;&#125;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> minus</span><br></pre></td></tr></table></figure>
-
-<p>导入</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> import 后不采用&#123;&#125;导入，后跟的变量名可以随意更改，想取什么取什么</span><br><span class="line"><span class="regexp">//</span> from 后跟文件文件路径 这里是相对路径</span><br><span class="line">import minus from <span class="string">&#x27;./common.js&#x27;</span></span><br><span class="line"><span class="regexp">//</span>调用方法</span><br><span class="line">minus(<span class="number">5</span>,<span class="number">4</span>)  <span class="regexp">//</span>结果：<span class="number">1</span></span><br><span class="line"><span class="regexp">//</span>我改为另一个名称</span><br><span class="line">import common from <span class="string">&#x27;./common.js&#x27;</span></span><br><span class="line"><span class="regexp">//</span> 调用方式 </span><br><span class="line">common(<span class="number">5</span>,<span class="number">4</span>) <span class="regexp">//</span>结果：<span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="commonjs-和-ES-Module-的区别"><a href="#commonjs-和-ES-Module-的区别" class="headerlink" title="commonjs 和 ES Module 的区别"></a>commonjs 和 ES Module 的区别</h3><p>commonjs 针对服务端 js
-ES Module 针对的是 浏览器</p>
-<p>区别：</p>
-<ol>
-<li>两者的模块导入导出语法不同：commonjs是module.exports，exports导出，require导入；ES6则是export导出，import导入。</li>
-<li>commonjs是运行时加载模块，ES6是在静态编译期间就确定模块的依赖。</li>
-<li>ES6在编译期间会将所有import提升到顶部，commonjs不会提升require。</li>
-<li>commonjs导出的是一个值拷贝，会对加载结果进行缓存，一旦内部再修改这个值，则不会同步到外部。ES6是导出的一个引用，内部修改可以同步到外部。</li>
-<li>两者的循环导入的实现原理不同，commonjs是当模块遇到循环加载时，返回的是当前已经执行的部分的值，而不是代码全部执行后的值，两者可能会有差异。所以，输入变量的时候，必须非常小心。ES6 模块是动态引用，如果使用import从一个模块加载变量（即import foo from ‘foo’），那些变量不会被缓存，而是成为一个指向被加载模块的引用，需要开发者自己保证，真正取值的时候能够取到值。</li>
-<li>commonjs中顶层的this指向这个模块本身，而ES6中顶层this指向undefined。</li>
-<li>CommonJs 是单个值导出，ES6 Module可以导出多个</li>
-<li>然后就是commonjs中的一些顶层变量在ES6中不再存在：<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arguments</span></span><br><span class="line"><span class="built_in">require</span></span><br><span class="line"><span class="built_in">module</span></span><br><span class="line"><span class="built_in">exports</span></span><br><span class="line">__filename</span><br></pre></td></tr></table></figure></li>
-<li>ESModule 属于编译时加载，即静态加载，在编译时就能够确定模块的依赖关系，以及输入和输出的变量;后者属于运行时加载，都只有在代码运行时才能够确定
-这些东西。ESM形式的好处是可以做到Tree Shaking
-另外，实现tree shaking的好处就不言而喻了，可以极大减少build后js的大小。</li>
-</ol>
-<p>ESModule可以加载模块的部分内容，CommonJS需要加载模块整个对象，在读取到内容。</p>
-<p>tree shaking的实现依赖于ESM的静态分析能力，import和export可以实现tree shaking，但是直接export default 整个对象或者使用CommonJS的语法是无法实现的。</p>
-<p>ESModule输出的是值的引用，CommonJS输出的是值的拷贝。<a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/module-loader">Module 的加载实现</a></p>
-<p>由于ESModule属于编译时加载，无法像后者一般，做到运行时加载。所以，有一个提案，引入import()函数，完成运行时加载，或者叫动态加载。import()和require()相同点都是运行时加载；区别在于，import()属于异步加载，require()属于同步加载。</p>
-<p>运行时加载的好处：按需加载；条件加载；动态的模块路径。</p>
-<p>什么叫运行时加载呢？就是说 你可以在一些比如条件判断语句里引入模块。而编译时加载就不行。如果使用import或者export时会报错，会告诉你这两个关键字的使用必须是在顶层的作用域才行。</p>
-<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line"> const <span class="built_in">math</span> = <span class="built_in">require</span>(<span class="string">&#x27;./math&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 报错，错误类似于</span><br><span class="line">// <span class="string">&#x27;import&#x27;</span> <span class="keyword">and</span> <span class="string">&#x27;export&#x27;</span> may only appear at the top level</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line"> <span class="keyword">import</span> <span class="built_in">math</span> <span class="keyword">from</span> <span class="string">&#x27;./math&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了解决ESM中无法实现运行时加载的问题，ESM提出了import()函数的概念，来完成运行时加载。而且从例子中，我们也可以明显的看出，import函数是异步加载的，而CommonJS是同步加载的。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line"> <span class="keyword">import</span>(<span class="string">&#x27;./math.js&#x27;</span>).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line"> <span class="comment">// do something</span></span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line"> <span class="comment">// oops!</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line"> <span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">&#x27;./math&#x27;</span>)</span><br><span class="line"> <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webpack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/15/CMD-AMD-COMMONJS-ES6/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">展开全文 >></a>
         </p>
       
 
@@ -705,7 +704,7 @@ ES Module 针对的是 浏览器</p>
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -717,7 +716,7 @@ ES Module 针对的是 浏览器</p>
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 Liu Xin
+    		&copy; 2022 Liu Xin
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -800,6 +799,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">布局</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -816,39 +823,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">难点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">中台</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">布局</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">hooks</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -860,11 +835,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -872,7 +843,51 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">process</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react-router</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">难点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">中台</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">时间</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">promise</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">浏览器</a>
               </li>
             
             <div class="clearfix"></div>

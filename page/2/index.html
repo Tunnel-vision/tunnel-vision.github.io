@@ -165,32 +165,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-react-thunk和react-saga" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-GIT下载大文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/15/react-thunk%E5%92%8Creact-saga/">react-thunk和react-saga</a>
+      <a class="article-title" href="/2021/11/17/GIT%E4%B8%8B%E8%BD%BD%E5%A4%A7%E6%96%87%E4%BB%B6/">GIT下载大文件</a>
     </h1>
   
 
         
-        <a href="/2021/08/15/react-thunk%E5%92%8Creact-saga/" class="archive-article-date">
-  	<time datetime="2021-08-15T08:44:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-15</time>
+        <a href="/2021/11/17/GIT%E4%B8%8B%E8%BD%BD%E5%A4%A7%E6%96%87%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2021-11-17T01:59:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <span id="more"></span>
+        <h3 id="问题1，-RPC-failed-curl-56-Recv-failure…"><a href="#问题1，-RPC-failed-curl-56-Recv-failure…" class="headerlink" title="问题1， RPC failed; curl 56 Recv failure…."></a>问题1， RPC failed; curl 56 Recv failure….</h3><p>查看git配置 <code>git config -l</code>
+httpBuffer 加大 <code>git config --global http.postBuffer 524288000</code>
+压缩配置 <code>git config --global core.compression -1</code>
+修改配置文件 </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">GIT_TRACE_PACKET</span>=1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GIT_TRACE</span>=1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GIT_CURL_VERBOSE</span>=1</span><br></pre></td></tr></table></figure>
 
-<p>1.<a target="_blank" rel="noopener" href="https://blog.csdn.net/deng1456694385/article/details/84075519">https://blog.csdn.net/deng1456694385/article/details/84075519</a></p>
-<p>2.<a target="_blank" rel="noopener" href="https://redux-saga-in-chinese.js.org/">https://redux-saga-in-chinese.js.org/</a></p>
-<p>3.<a target="_blank" rel="noopener" href="http://www.gxlsystem.com/qianduan-4396.html">http://www.gxlsystem.com/qianduan-4396.html</a></p>
 
+<h3 id="问题2，-当我想从远程仓库里拉取一条本地不存在的分支时"><a href="#问题2，-当我想从远程仓库里拉取一条本地不存在的分支时" class="headerlink" title="问题2， 当我想从远程仓库里拉取一条本地不存在的分支时:"></a>问题2， 当我想从远程仓库里拉取一条本地不存在的分支时:</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> 本地分支名 origin/远程分支名</span><br></pre></td></tr></table></figure>
       
 
       
@@ -202,7 +204,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/15/react-thunk%E5%92%8Creact-saga/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/11/17/GIT%E4%B8%8B%E8%BD%BD%E5%A4%A7%E6%96%87%E4%BB%B6/">展开全文 >></a>
         </p>
       
 
@@ -232,39 +234,33 @@
 
 
   
-    <article id="post-hybrid" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-document事件冒泡和扑获机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/15/hybrid/">hybrid</a>
+      <a class="article-title" href="/2021/10/31/document%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E5%92%8C%E6%89%91%E8%8E%B7%E6%9C%BA%E5%88%B6/">document事件冒泡和扑获机制</a>
     </h1>
   
 
         
-        <a href="/2021/08/15/hybrid/" class="archive-article-date">
-  	<time datetime="2021-08-15T08:10:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-15</time>
+        <a href="/2021/10/31/document%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E5%92%8C%E6%89%91%E8%8E%B7%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2021-10-31T10:11:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="hybrid"><a href="#hybrid" class="headerlink" title="hybrid"></a>hybrid</h3><p>前端和客户端混合开发。</p>
-<h3 id="现有的混合的方案"><a href="#现有的混合的方案" class="headerlink" title="现有的混合的方案"></a>现有的混合的方案</h3><ul>
-<li><h4 id="基于webView-UI的基础方案"><a href="#基于webView-UI的基础方案" class="headerlink" title="基于webView UI的基础方案"></a>基于webView UI的基础方案</h4></li>
-</ul>
-<p>1.基础方案。
-2. 在webview的基础上。与原生客户端建立jsBridge 桥接。
-通过jsBridge 调用Native API和 Native 执行js的目的。
-3. 赋予H5一定程度的原生能力。
-微信的JS-SDK
-支付宝的JS-API</p>
-        
-          <a class="article-more-a" href="/2021/08/15/hybrid/#more">more >></a>
-        
+        <h3 id="事件的机制"><a href="#事件的机制" class="headerlink" title="事件的机制"></a>事件的机制</h3><pre><code>1. 事件扑获
+2. 目标事件
+3. 事件冒泡
+</code></pre>
+<h3 id="事件机制"><a href="#事件机制" class="headerlink" title="事件机制"></a>事件机制</h3><p>一个事件默认是不能扑获的，默认是冒泡机制。
+要是改变事件的监听顺序可以改写，addEventListener(type,listener,{capture:true})</p>
+
       
 
       
@@ -277,7 +273,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hybrid</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">时间</a>
         		</li>
       		
 		</ul>
@@ -289,7 +285,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/hybrid技术//" class="article-tag-list-link color4">hybrid技术</a>
+        			<a href="/categories/js//" class="article-tag-list-link color3">js</a>
         		</li>
       		
 		</ul>
@@ -298,7 +294,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/15/hybrid/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/10/31/document%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E5%92%8C%E6%89%91%E8%8E%B7%E6%9C%BA%E5%88%B6/">展开全文 >></a>
         </p>
       
 
@@ -328,190 +324,152 @@
 
 
   
-    <article id="post-小程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-react-router" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+      <a class="article-title" href="/2021/09/06/react-router/">react-router</a>
     </h1>
   
 
         
-        <a href="/2021/08/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-08-15T04:43:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-15</time>
+        <a href="/2021/09/06/react-router/" class="archive-article-date">
+  	<time datetime="2021-09-06T09:24:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.小程序的双线程模型。
-传统的浏览器里，ui渲染模型和javascript逻辑是在一个线程中执行的，它俩是交替执行的。
-javascript对dom的操作，会阻塞浏览器的渲染。
-小程序使用的是一个两个线程并行执行的模式。叫双线程模型。
-两个线程合力完成小程序的渲染。
-一个线程专门负责渲染工作，我们一般称之为渲染层。
-而另外有一个线程执行我们的逻辑代码，我们一般叫做逻辑层。这两个线程同时运行，并通过微信客户端来交换数据。
-在小程序运行的时候，逻辑层执行我们编写的逻辑，将数据通过 setData 发送到渲染层；而渲染层解析我们的 WXML 和 WXSS，并结合数据渲染出页面。
-一方面，每个页面对应一个 WebView 渲染层，对于用户来说更加有页面的感觉，体验更好，而且也可以避免单个 WebView 的负担太重
-另一方面，将小程序代码运行在独立的线程中的模式有更好的安全表现，允许有像 open-data 这样的组件可以在确保用户隐私的前提下让我们展示用户数据。</p>
-<p>所有和页面有关的改动都只能通过 setData 来完成。</p>
-        
-          <a class="article-more-a" href="/2021/08/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">总结</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/小程序//" class="article-tag-list-link color4">小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-react源码解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/14/react%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">react源码解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/14/react%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-08-14T06:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/14/react%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-面试回顾" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/13/%E9%9D%A2%E8%AF%95%E5%9B%9E%E9%A1%BE/">面试回顾</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/13/%E9%9D%A2%E8%AF%95%E5%9B%9E%E9%A1%BE/" class="archive-article-date">
-  	<time datetime="2021-08-13T03:30:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ol>
-<li>对 this的理解</li>
+        <ol>
+<li>history核心流程<ol>
+<li>监听 listener<ol>
+<li>history<ol>
+<li>popState</li>
 </ol>
+</li>
+<li>hash<ol start="2">
+<li>onhashChange</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>push<ol>
+<li>history<ol>
+<li>history.pushState</li>
+</ol>
+</li>
+<li>hash<ol start="2">
+<li>window.location.hash</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>replace<ol>
+<li>history<ol>
+<li>history.replaceState</li>
+</ol>
+</li>
+<li>hash<ol>
+<li>window.location.replace</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">react-router</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/react//" class="article-tag-list-link color1">react</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/06/react-router/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/2021/08/13/%E9%9D%A2%E8%AF%95%E5%9B%9E%E9%A1%BE/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-useRef和createRef" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/31/useRef%E5%92%8CcreateRef/">useRef和createRef</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/31/useRef%E5%92%8CcreateRef/" class="archive-article-date">
+  	<time datetime="2021-08-31T07:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+ useRef 在 react hook 中的作用, 正如官网说的, 它像一个变量, 类似于 this , 它就像一个盒子, 你可以存放任何东西.</p>
+        
+          <a class="article-more-a" href="/2021/08/31/useRef%E5%92%8CcreateRef/#more">more >></a>
         
       
 
@@ -525,7 +483,7 @@ javascript对dom的操作，会阻塞浏览器的渲染。
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">hooks</a>
         		</li>
       		
 		</ul>
@@ -537,7 +495,7 @@ javascript对dom的操作，会阻塞浏览器的渲染。
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        			<a href="/categories/react//" class="article-tag-list-link color1">react</a>
         		</li>
       		
 		</ul>
@@ -546,7 +504,91 @@ javascript对dom的操作，会阻塞浏览器的渲染。
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/13/%E9%9D%A2%E8%AF%95%E5%9B%9E%E9%A1%BE/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/31/useRef%E5%92%8CcreateRef/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-nodejs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/29/nodejs/">nodejs</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/29/nodejs/" class="archive-article-date">
+  	<time datetime="2021-08-29T07:04:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>node 扑获错误的情况</p>
+<ol>
+<li>同步错误<ol>
+<li>直接throw new Error(“”)</li>
+</ol>
+</li>
+<li>异步错误<ol start="2">
+<li>通过异步回调,next(err),来扑获异步错误</li>
+</ol>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/29/nodejs/">展开全文 >></a>
         </p>
       
 
@@ -578,7 +620,7 @@ javascript对dom的操作，会阻塞浏览器的渲染。
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -590,7 +632,7 @@ javascript对dom的操作，会阻塞浏览器的渲染。
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 Liu Xin
+    		&copy; 2022 Liu Xin
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -673,6 +715,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">布局</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -689,39 +739,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">难点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">中台</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">布局</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">hooks</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,11 +751,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color2">三座大山系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,7 +759,51 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">process</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react-router</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">难点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">中台</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">时间</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">promise</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">浏览器</a>
               </li>
             
             <div class="clearfix"></div>
