@@ -35,7 +35,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -164,6 +164,94 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-hooks知识整理-一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">hooks知识整理(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/" class="archive-article-date">
+  	<time datetime="2022-04-11T07:44:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="CreateRef-和-UseRef-的区别"><a href="#CreateRef-和-UseRef-的区别" class="headerlink" title="CreateRef 和 UseRef 的区别"></a>CreateRef 和 UseRef 的区别</h3><pre><code>1. createRef每次渲染都会返回一个新的引用，而useRef每次都会返回相同的引用。
+2.  useRef 不仅仅是来管理的DOM ref的，它还相当于this。 可以存放任何变量。
+3. useRef 可以很好的解决闭包带来的不方便性，你可以在各种库中看到他的影子，比如 react-use 中的 useInterval , usePrevious 
+4. 当useRef的内容发生变化时，它不会通知您。更新.current 属性不会导致重新呈现，因为他一直是一个引用。
+</code></pre>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ul>
+<li><ol>
+<li>写的很好的插件。 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/yq7r1oror1?file=/App.js:2459-2467">https://codesandbox.io/s/yq7r1oror1?file=/App.js:2459-2467</a></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>createRef和useRef 的区别 <a target="_blank" rel="noopener" href="https://blog.csdn.net/frontend_frank/article/details/104243286">https://blog.csdn.net/frontend_frank/article/details/104243286</a></li>
+</ol>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">hooks</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/11/hooks%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-GIT下载大文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -505,90 +593,6 @@ httpBuffer 加大 <code>git config --global http.postBuffer 524288000</code>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/31/useRef%E5%92%8CcreateRef/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nodejs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/29/nodejs/">nodejs</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/29/nodejs/" class="archive-article-date">
-  	<time datetime="2021-08-29T07:04:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>node 扑获错误的情况</p>
-<ol>
-<li>同步错误<ol>
-<li>直接throw new Error(“”)</li>
-</ol>
-</li>
-<li>异步错误<ol start="2">
-<li>通过异步回调,next(err),来扑获异步错误</li>
-</ol>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/29/nodejs/">展开全文 >></a>
         </p>
       
 
