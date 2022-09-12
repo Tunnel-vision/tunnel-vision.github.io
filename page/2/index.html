@@ -165,6 +165,425 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前端必会知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/18/%E5%89%8D%E7%AB%AF%E5%BF%85%E4%BC%9A%E7%9F%A5%E8%AF%86%E7%82%B9/">前端必会知识点</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/18/%E5%89%8D%E7%AB%AF%E5%BF%85%E4%BC%9A%E7%9F%A5%E8%AF%86%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2022-04-18T08:54:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><pre><code>1.  HTML5 新增那些标签
+    Header nav content section asider footer  video audio
+    input 新增了一些属性 type email url date time number tel search color submit
+2. 
+</code></pre>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><pre><code>1. css3 新特性
+    * 属性选择器 input[value] input[type=text]  div[class^=&#39;icon&#39;] div[class$=&#39;data&#39;] 
+    * 伪类选择器 ul li:first-child, ul li:last-child, ul li:nth-child(2), ul li:nth-child(even),ul li:nth-child(odd) ，ol li:first-of-type,ol li:last-of-type, ol li:nth-of-type(even)
+    * 伪元素选择器 :: div::before , div:: after
+2. Calc, support, media 各自的含义和用法。
+    1. calc  动态计算长度值，运算符必须用空格 隔开。 &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot; 
+    2. support 动态监测浏览器是否支持某个css属性。@support(prop:value) 例子 @support (display:flex) &#123;div &#123; display:flex &#125;&#125; not,or, and
+    3. meida 媒体查询 针对不同的媒体类型 设置不同的样式. 常用属性 @media print, all, screen
+3. css 水平居中 和 css 垂直居中 
+    1. 水平居中
+        <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 行内元素</span><br><span class="line">    <span class="attribute">text-align</span>: center</span><br><span class="line"><span class="number">2</span>. 块元素</span><br><span class="line">    <span class="number">1</span>.  margin： <span class="number">0</span> auto;</span><br><span class="line">    2.  <span class="attribute">position</span>: absolute;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">        <span class="attribute">transform</span>: tranlsateX(-<span class="number">50%</span>)</span><br><span class="line">    <span class="number">3</span>.  diplay: flex;</span><br><span class="line">        justify-center: center;</span><br></pre></td></tr></table></figure>
+
+    2. 垂直居中
+        <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 行内元素</span><br><span class="line">    <span class="number">1</span>. <span class="attribute">line-height</span>： 等于 <span class="attribute">height</span></span><br><span class="line"><span class="number">2</span>. 块元素</span><br><span class="line">    <span class="number">1</span>.  postion： absolute;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">50%</span>)</span><br><span class="line">    <span class="number">2</span>. display: flex;</span><br><span class="line">        align-item: center;</span><br><span class="line">    <span class="number">3</span>. dispaly: table</span><br><span class="line">            display: table-cell;</span><br><span class="line">            vertcial-align: center;</span><br></pre></td></tr></table></figure>
+    3. 画一条0.5px的直线。
+        hegiht: 1px;
+        transform: scale(0.5)
+    4. css3盒子模型。
+        1. 标准盒模型 width 指的就是内容的宽度。 box-sizing: content-box
+        2. IE盒模型 width 指的就是 content+border+padding box-sizing: border-box
+    5.  画一个三角形。
+        .roate &#123;
+        width: 0px;
+        height: 0px;
+        border: 100px solid;
+        border-color: transparent #0099cc transparent transparent;
+        transform: rotate(90deg);
+        &#125;
+        &lt;div class=&quot;roate&quot;&gt;&lt;div&gt;
+    6. 清楚浮动的原理和实现方式。
+    7. BFC及其应用。
+    8. 伪类和伪元素
+    9. max-width/min-width min-height 和 max-height
+    10. 
+        
+</code></pre>
+<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><pre><code>1. 说一下时间代理/事件委托？
+    事件委托是将事件绑定在目标事件的父元素上，利用冒泡机制出发时间。
+    <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ulEl.addEventListener(<span class="string">&#x27;click&#x27;</span>, function(e)&#123;</span><br><span class="line">var <span class="keyword">target</span> = event.<span class="keyword">target</span> || event.srcElement;</span><br><span class="line"><span class="keyword">if</span>(!!<span class="keyword">target</span> &amp;&amp; <span class="keyword">target</span>.nodeName.toUpperCase() === <span class="string">&quot;LI&quot;</span>)&#123;</span><br><span class="line">    console.log(<span class="keyword">target</span>.innerHTML);</span><br><span class="line">&#125;</span><br><span class="line">&#125;, <span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+2. addEventListener第三个参数默认是什么。
+    1. addEventListener( event,  function,  useCapture)
+    2. 默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。
+3. target,currentTarget 的区别
+    currentTarget当前所绑定事件的元素
+    target当前被点击的元素
+4. 介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
+    #### Set
+    1. 成员不能重复；
+    2. 只有键值，没有键名，有点类似数组；
+    3. 可以遍历，方法有 `add、delete、has`
+
+    #### WeakSet
+
+    1. 成员都是对象（引用）；
+    2. 成员都是弱引用，随时可以消失（不计入垃圾回收机制）。可以用来保存 DOM 节点，不容易造成内存泄露；
+    3. 不能遍历，方法有 `add、delete、has`；
+
+    #### Map
+
+    1. 本质上是键值对的集合，类似集合；
+    2. 可以遍历，方法很多，可以跟各种数据格式转换；
+
+    ####  WeakMap
+
+    1. 只接收对象为键名（null 除外），不接受其他类型的值作为键名；
+    2. 键名指向的对象，不计入垃圾回收机制；
+    3. 不能遍历，方法同 `get、set、has、delete`；
+
+5. setTimeout、Promise、Async/Await 的区别
+    setTimeout: `setTimeout` 的回调函数放到宏任务队列里，等到执行栈清空以后执行
+    Promise: `Promise` 本身是同步的立即执行函数，当在 executor 中执行 resolve 或者 reject 的时候，此时是异步操作，会先执行 then/catch 等，当主栈完成时，才会去调用 resolve/reject 方法中存放的方法。
+    async: `async` 函数返回一个 `Promise` 对象，当函数执行的时候，一旦遇到 `await` 就会先返回，等到触发的异步操作完成，再执行函数体内后面的语句。可以理解为，是让出了线程，跳出了 `async` 函数体。
+5. ES5/ES6 的继承除了写法以外还有什么区别？
+    1. `class` 声明会提升，但不会初始化赋值。（类似于 `let、const` 声明变量；
+    2. `class` 声明内部会启用严格模式；
+    3. `class` 的所有方法（包括静态方法和实例方法）都是不可枚举的；
+    4. `class` 的所有方法（包括静态方法和实例方法）都没有原型对象 `prototype`，所以也没有 `[[constructor]]`，不能使用 `new` 来调用；
+    5. 必须使用 `new` 来调用 `class`；
+    6. `class` 内部无法重写类名；
+6. 简述一下Generator函数
+    传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做“协程”（coroutine），意思是多个线程互相协作，完成异步任务。
+    协程有点像函数，又有点像线程，它的运行流程大致如下：
+    - 第一步，协程 `A` 开始执行；
+    - 第二步，协程 `A` 执行到一半，进入暂停，执行权转移到协程 `B`；
+    - 第三步，（一段时间后）协程 `B` 交还执行权；
+    - 第四步，协程 `A` 恢复执行；
+    上面流程的协程 `A`，就是异步任务，因为它分成两段（或多段）执行。
+    举例来说，读取文件的协程写法如下：
+    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">asyncJob</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">yield</span> readFile(fileA);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    上面代码的函数 `asyncJob` 是一个协程，它的奥妙就在其中的 `yield` 命令。它表示执行到此处，执行权将交给其他协程。也就是说，`yield` 命令是异步两个阶段的分界线。协程遇到 `yield` 命令就暂停，等到执行权返回，再从暂停的地方继续往后执行。
+    `Generator` 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。
+    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line"><span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g.next() <span class="comment">// &#123; value: 3, done: false &#125;</span></span><br><span class="line">g.next(<span class="number">2</span>) <span class="comment">// &#123; value: 2, done: false &#125;</span></span><br></pre></td></tr></table></figure>
+    `next` 是返回值的 `value` 属性，是 `Generator` 函数向外输出数据；`next` 方法还可以接受参数，向 `Generator` 函数体内输入数据。
+    上面代码中，第一个 `next` 方法的 `value` 属性，返回表达式 `x + 2` 的值 `3`。第二个 `next` 方法带有参数 `2`，这个参数可以传入 `Generator` 函数，作为 `上个阶段` 异步任务的返回结果，被函数体内的变量 `y` 接收。因此，这一步的 `value` 属性，返回的就是 `2`（变量 `y` 的值）。
+
+7. JS 异步解决方案的发展历程以及优缺点。
+    回调函数
+        优点： 解决异步回调的问题。
+        缺点： 回调地狱，不能用try/catch 扑获错误，不能return。
+    Promise
+        优点： 解决回调地狱的问题。
+        缺点： 无法取消Promise，错误需要回调函数来处理。
+    Generator
+        优点： 可以控制函数的执行。
+    Async/Await
+        优点： 代码清晰，用同步逻辑写异步代码，解决了地狱回调的问题。可以用try/catch扑获异常。
+        缺点： await 将异步代码改造为同步代码，如果多个操作没有操作依赖性，await会导致性能上的降低。
+
+8. bind,call, apply 区别是什么，那个性能好一些。
+    都是为了改变函数体里this的指向。
+    bind
+        1. 返回一个函数。
+    call
+        1. 直接执行。第一个参数是函数体里的this指向，第二个参数不是一个固定的参数。 / 性能好一些。
+    apply
+        1.  直接执行。第一个参数是函数体里的this指向，第二个参数是一个数组。
+
+9. 箭头函数与普通函数的区别，
+    1. 箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+    2. 箭头函数不可以用arguments对象。如果要用可以用rest来代替。
+    3. 不能使用yield 命令，因此箭头函数不能用作Generator函数。
+    4. 不能使用new 命令。
+        1. 因为没有自己的this，无法调用 call 和 apply。
+        2. 没有prototype属性， 而new命令在执行时需要将钩子函数的prototype属性赋值给新的对象的 __proto__.
+10. 原型与原型链。
+    1. 构造函数，对象实例，原型之间的关系。
+        1. 对象实例的__proto__属性 指向 原型
+        2. 原型的constructor === 构造函数。
+        3. 原型的 __proto__ 指向object， object的 __proto__ 指向 null。
+    2. 继承。
+        1. 原型链继承。
+            <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">SuperType()</span>&#123;</span><br><span class="line">    this.proptyies = <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="constructor">SubType(<span class="params">subValue</span>)</span> &#123;</span><br><span class="line">    this.subPropties = subValue</span><br><span class="line">&#125;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SubType</span>.</span></span>prototype = <span class="keyword">new</span> <span class="constructor">SuperType()</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SubType</span>.</span></span>prototype.getSubvalue = <span class="keyword">function</span><span class="literal">()</span>&#123;</span><br><span class="line">    return this.subPropties;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> subInstance = <span class="keyword">new</span> <span class="constructor">SubType(&#x27;<span class="params">motors</span>&#x27;)</span>;</span><br><span class="line">console.log(subInstance.get<span class="constructor">Subvalue()</span>)</span><br></pre></td></tr></table></figure>
+            不足1. 引用值会在在所有实例间共享。
+            不足2. 子类实例化不能给父类型的构造函数传参
+        2. 盗用构造函数继承（经典继承）
+            <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="constructor">SuperType(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    this.property = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="constructor">SubType(<span class="params">value</span>,<span class="params">subValue</span>)</span>&#123;</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">SuperType</span>.</span></span>call(this,value)</span><br><span class="line">    this.subProerty = subValue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> subInstance = <span class="keyword">new</span> <span class="constructor">SubType(&#x27;<span class="params">value</span>&#x27;,&#x27;<span class="params">subValue</span>&#x27;)</span></span><br><span class="line"></span><br><span class="line">console.log(subInstance)</span><br></pre></td></tr></table></figure>
+            不足1. 必须在构造函数中定义方法。
+            不足2. 子类不能访问父类的原型方法。
+        3. 组合继承
+            <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.property = value;</span><br><span class="line">    <span class="built_in">this</span>.colors = [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;bule&#x27;</span>,<span class="string">&#x27;green&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.property)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">value,subValue</span>)</span>&#123;</span><br><span class="line">    SuperType.call(<span class="built_in">this</span>,value)</span><br><span class="line">    <span class="built_in">this</span>.subProperty = subValue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">SubType.prototype.saySubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.subProperty)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> subInstance1 = <span class="keyword">new</span> SubType(<span class="string">&#x27;value&#x27;</span>,<span class="string">&#x27;subvalue&#x27;</span>);</span><br><span class="line">subInstance1.colors.push(<span class="string">&quot;pink&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(subInstance1.colors)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(subInstance1.sayName())</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> subInstance2 = <span class="keyword">new</span> SubType(<span class="string">&#x27;value2&#x27;</span>,<span class="string">&#x27;subvalue2&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(subInstance2.colors)</span><br></pre></td></tr></table></figure>
+            不足1. 父类构造函数要实例2次。
+        4. 原型式继承
+            &lt;!-- ``` --&gt;
+            function object(o)&#123;
+            let F = function()&#123;&#125;;
+            F.prototype = o;
+            return new F();
+            &#125;
+            let person = &#123;
+                name:&quot;tom&quot;,
+                age: 18,
+            &#125;
+
+           let newPerson = object(person);
+
+            newPerson.colors.push(&quot;pink&quot;)
+
+            let new2Person = object(person);
+
+            new2Person.colors.push(&quot;yellow&quot;)
+
+            console.log(person.colors)
+            console.log(newPerson.colors)
+            console.log(new2Person.colors)
+            <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">    1.</span> 不定义类型可以通过原型对象之间的信息共享。</span><br><span class="line"><span class="bullet">    2.</span> 适用于你有一个对象，然后你你在他的基础上在创建一个新的对象。</span><br><span class="line"><span class="bullet">5.</span> 寄生式继承</span><br></pre></td></tr></table></figure>
+            let person = &#123;
+                name:&#39;tom&#39;,
+                friends: [&#39;lucy&#39;,&#39;Van&#39;]
+            &#125;
+
+            function createAnother(o)&#123;
+                let clone = object(o);
+                clone.sayHi = function()&#123;
+                    console.log(&#39;say hi&#39;)
+                &#125;
+                return clone;
+            &#125;
+
+            let anotherPerson = createAnother(person);
+
+            anotherPerson.sayHi();
+            <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">6.</span> 寄生组合式继承。</span><br></pre></td></tr></table></figure>
+            function object(o)&#123;
+                let F = function()&#123;&#125;;
+                F.prototype = o;
+                return new F();
+            &#125;
+
+            function inheritPrototype(subType,superType)&#123;
+                let prototype = object(superType)
+                prototype.constructor = subType
+                subType.prototype = prototype
+            &#125;
+
+            function SuperType(name) &#123;
+                this.name = name;
+                this.colors = [&#39;red&#39;,&#39;bule&#39;,&#39;gray&#39;]
+            &#125;
+
+            SuperType.prototype.sayName = function()&#123;
+                console.log(this.name)
+            &#125;
+
+            function subType(name,age)&#123;
+                SuperType.call(this,name);
+                this.age = age;
+            &#125;
+
+            // subType.prototype = new SuperType();
+            inheritPrototype(subType,SuperType)
+            subType.prototype.constructor = subType;
+            subType.prototype.sayAge = function()&#123;
+                console.log(this.age)
+            &#125;
+
+            let subInstance = new subType(&#39;tom&#39;,&#39;18&#39;);
+
+            subInstance.sayAge();
+            <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">11.</span> ES6转成es5的代码的思路。</span><br><span class="line"><span class="bullet">    1.</span> 将代码转化为抽象语法树，所谓的AST。</span><br><span class="line"><span class="bullet">    2.</span> 对AST进行处理，在这个阶段可以对ES6代码进行转化，转成ES5 AST。</span><br><span class="line"><span class="bullet">    3.</span> 根据ES5 AST生成代码字符串。</span><br><span class="line"><span class="bullet">12.</span> 内存泄漏的几种情况。</span><br><span class="line"><span class="bullet">    1.</span> 意外的全局变量。</span><br><span class="line"><span class="bullet">    2.</span> 闭包。</span><br><span class="line"><span class="bullet">    3.</span> 定时器引入外部的变量，或者定时器未被清空。</span><br><span class="line"><span class="bullet">    4.</span> 未被销毁的事件监听；</span><br><span class="line"><span class="bullet">    5.</span> DOM 引用；</span><br><span class="line"><span class="bullet">13.</span> instanceof 的实现原理</span><br></pre></td></tr></table></figure>
+    while (x.__proto__) &#123;
+    if (x.__proto__ === y.prototype) &#123;
+        return true;
+    &#125;
+    x.__proto__ = x.__proto__.__proto__;
+    &#125;
+    if (x.__proto__ === null) &#123;
+    return false;
+    &#125;
+    <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">14</span>. 如何中断Ajax请求。</span><br><span class="line">    <span class="number">1</span>. 设置timeout超时。</span><br><span class="line">    <span class="number">2</span>. 根据XMLHttpRequest的状态(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>=请求已经完成)改变，手动断开，调用abort()方法。</span><br><span class="line"><span class="number">15</span>. 说一下宏任务和微任务。</span><br><span class="line">    <span class="number">1</span>. 宏任务： 当前调用栈执行的任务，主代码，宏任务的事件都放在callback queue队列，由libuv事件触发线程维护。</span><br><span class="line"></span><br><span class="line">    <span class="number">2</span>. 微任务： 当前（此次事件循环中）宏任务执行完，在下一个宏任务开始之前需要执行的任务为微任务。 可以理解为回调时间。微任务的事件放在微任务队列中，由js引擎线程维护。</span><br><span class="line"><span class="number">16</span>. 继承的几种方式和优缺点。</span><br><span class="line">    <span class="number">1</span>. 借用构造函数继承，使用call或apply方法，将父对象的构造函数绑定在子对象上</span><br><span class="line">    <span class="number">2</span>. 原型继承，将子对象的prototype指向父对象的一个实例</span><br><span class="line">    <span class="number">3</span>. 组合继承</span><br><span class="line">    原型链继承的缺点</span><br><span class="line">    * 字面量重写原型会中断关系，使用引用类型的原型，并且子类型还无法给超类型传递参数。</span><br><span class="line">    借用构造函数（类式继承）</span><br><span class="line">    * 借用构造函数虽然解决了刚才两种问题，但没有原型，则复用无从谈起。</span><br><span class="line">    组合式继承</span><br><span class="line">    *  组合式继承是比较常用的一种继承方法，其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又保证每个实例都有它自己的属性。</span><br><span class="line"><span class="number">17</span>. 说一下闭包。</span><br><span class="line">    <span class="number">1</span>. 闭包的实质因为函数嵌套形成了作用域链。</span><br><span class="line">    <span class="number">2</span>. 函数 `A` 内部有一个函数 `B`，函数 `B` 可以访问到函数 `A` 中的变量，那么函数 `B` 就是闭包</span><br><span class="line"><span class="number">18</span>. export 和 export default 的区别。</span><br><span class="line"><span class="number">19</span>. 常用的es6的功能。</span><br><span class="line">    箭头函数，let const 声明，参数解构，</span><br><span class="line"><span class="number">20</span>. 防抖和节流。</span><br><span class="line">    <span class="number">1</span>. 触发高频事件后 n 秒内函数只会执行一次，如果 n 秒内高频事件再次被触发，则重新计算时间。</span><br></pre></td></tr></table></figure>
+        function debounce(fn, timing) &#123;
+        let timer;
+        return function() &#123;
+            clearTimeout(timer);
+            timer = setTimeout(() =&gt; &#123;
+            fn();
+            &#125;, timing);
+        &#125;
+        &#125;
+        <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">2.</span> 高频事件触发，但在 n 秒内只会执行一次，所以节流会稀释函数的执行效率。</span><br></pre></td></tr></table></figure>
+        function throttle(fn, timing) &#123;
+        let trigger;
+        return function() &#123;
+            if (trigger) return;
+            trigger = true;
+            fn();
+            setTimeout(() =&gt; &#123;
+            trigger = false;
+            &#125;, timing);
+        &#125;
+        &#125;
+        <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">        Tips：我记这个很容易把两者弄混，总结了个口诀，就是 DTTV（Debounce Timer Throttle Variable - 防抖靠定时器控制，节流靠变量控制）。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## React</span></span><br><span class="line"><span class="code">    1. react组件的生命周期函数的执行顺序</span></span><br><span class="line"><span class="code">        ![参考](https://www.cnblogs.com/soyxiaobi/p/9559117.html)</span></span><br><span class="line"><span class="code">        1. 挂载</span></span><br><span class="line"><span class="code">            construcor componentWillMount， render ComponentDidMount</span></span><br><span class="line"><span class="code">        2. 更新</span></span><br><span class="line"><span class="code">            componentWillReceiveProps, shouldComponentUpdate, ComponentWillUpdate, render ComponentDidUpdate</span></span><br><span class="line"><span class="code">        3. 卸载</span></span><br><span class="line"><span class="code">            ComponentWillUnMount 页面离开，页面销毁。</span></span><br><span class="line"><span class="code">    2. React的列表组件的Key的作用。</span></span><br><span class="line"><span class="code">        `vue` 和 `react` 都是采用 diff 算法来对比新旧虚拟节点，从而更新节点。在 `vue` 的 diff 函数交叉对比中，当新节点跟旧节点`头尾交叉对比`没有结果时，会根据新节点的 `key` 去对比旧节点数组中的 `key`，从而找到相应旧节点（这里对应的是一个 key =&gt; index 的 map 映射）。如果没有找到就认为是一个新增节点。而如果没有 key，那么就会采用遍历查找的方式去找到对应的旧节点。一种一个 map 映射，另一种是遍历查找。相比而言，map 映射的速度更快。</span></span><br><span class="line"><span class="code">    3. Redux 的reducer不能做异步操作。</span></span><br><span class="line"><span class="code">        1. 纯函数，给定同样的输入返回同样的输出，可预测性。</span></span><br><span class="line"><span class="code">        2. redux的设计思想就是不产生副作用，数据更改的状态可回溯，所以 `redux` 中处处都是纯函数。</span></span><br><span class="line"><span class="code">    4. react-router里面的LINK 和 a 标签有什么区别</span></span><br><span class="line"><span class="code">        1. 阻止a标签的默认事件，跳转页面。</span></span><br><span class="line"><span class="code">        2. 在取得跳转 `href`（`to` 属性值），用 history/hash 跳转，此时只是链接发现改变，并没有刷新页面；</span></span><br><span class="line"><span class="code">    5. react-router的路由原理。</span></span><br><span class="line"><span class="code">        hashHistory</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">        browerHistory</span></span><br><span class="line"><span class="code">    6. 简述 Flux 思想</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### 浏览器</span></span><br><span class="line"><span class="code">    1. 页面渲染HTML的过程。</span></span><br><span class="line"><span class="code">    2. 如何实现浏览器内多个标签页之间的通信？</span></span><br><span class="line"><span class="code">        实现多个标签页之间的通信，本质上都是通过中介者模式来实现的。因为标签页之间没有办法直接通信，因此我们可以找一个中介者来让标签页和中介者进行通信，然后让这个中介者来进行消息的转发。</span></span><br><span class="line"><span class="code">        1. 使用 Websocket，通信的标签页连接同一个服务器，发送消息到服务器后，服务器推送消息给所有连接的客户端；</span></span><br><span class="line"><span class="code">        2. 可以地调用 localStorage，localStorage 在另一个浏览上下文里被添加、修改或删除时，它都会触发一个 storage 事件，我们可以通过监听 storage 事件，控制它的值来进行页面信息通信；</span></span><br><span class="line"><span class="code">        3. 如果我们能够获得对应标签页的引用，通过 postMessage 方法也是可以实现多个标签页通信的；</span></span><br><span class="line"><span class="code">    3. 前端性能优化</span></span><br><span class="line"><span class="code">        1. 页面大小优化</span></span><br><span class="line"><span class="code">            1. html css js 文件压缩。图片压缩</span></span><br><span class="line"><span class="code">            2. 懒加载优化</span></span><br><span class="line"><span class="code">            3. 服务端渲染优化</span></span><br><span class="line"><span class="code">        2. 服务器通信优化</span></span><br><span class="line"><span class="code">            1. 浏览器器缓存(localStorge/sessionStorage/cookies)/http协商缓存/CDN缓存</span></span><br><span class="line"><span class="code">            2. 图片合并减少http请求数</span></span><br><span class="line"><span class="code">            3. js async/defer</span></span><br><span class="line"><span class="code">            4. 服务器通信压缩 Gzip和Deflate传输资源压缩</span></span><br><span class="line"><span class="code">            5. 预加载，提高访问资源的响应速度。</span></span><br><span class="line"><span class="code">            6. 请求资源缓存。服务器静态资源缓存。</span></span><br><span class="line"><span class="code">        </span></span><br><span class="line"><span class="code">        3. 渲染优化</span></span><br><span class="line"><span class="code">            1. js async/defer 异步执行。不阻塞 渲染树的构建。</span></span><br><span class="line"><span class="code">            2. 减少重排重绘。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    4. http 协商缓存</span></span><br><span class="line"><span class="code">        1. 强缓存</span></span><br><span class="line"><span class="code">            &gt; 通过http的response header中的Cache-Control和Expire两个字段控制。其中Expire基本上已经淘汰了，不用管，主要看Cache-Control的几个取值含义：</span></span><br><span class="line"><span class="code">            1. private 仅浏览器可以缓存 </span></span><br><span class="line"><span class="code">            2. public 浏览器和代理服务器都可以缓存</span></span><br><span class="line"><span class="code">            3. max-age=xxx 过期时间</span></span><br><span class="line"><span class="code">            4. no-cache  不进行强缓存</span></span><br><span class="line"><span class="code">            5. no-store  不强缓存和不协商缓存。</span></span><br><span class="line"><span class="code">            强缓存步骤：</span></span><br><span class="line"><span class="code">                1. 第一次请求文件，缓存中没有该信息，直接请求服务器。</span></span><br><span class="line"><span class="code">                2. 服务器返回请求的文件，并且http response header中cache-control为max-age=xxx</span></span><br><span class="line"><span class="code">                3. 再次请求该文件时，判断是否过期，如果没有过期，直接读取本地缓存，如果已经过期了，则进行协商缓存。</span></span><br><span class="line"><span class="code">        2. 协商缓存。</span></span><br><span class="line"><span class="code">            &gt; 前提条件：cache-control no-cache。 max-age 过期。 协商缓存有两个重要的规则</span></span><br><span class="line"><span class="code">                1. ETag 每个文件有一个，改动了文件就变了。</span></span><br><span class="line"><span class="code">                2. Last-Modified： 文件的修改时间。</span></span><br><span class="line"><span class="code">            步骤：</span></span><br><span class="line"><span class="code">                * 请求资源时，要同时比较本地该资源的ETag和Last-Modified（主要是ETag）和服务器最新资源该资源的ETag</span></span><br><span class="line"><span class="code">                * 如果资源没有被更新，返回304状态码，浏览器读取本地缓存</span></span><br><span class="line"><span class="code">                * 如果资源已经被更新，返回200状态码，浏览器获取服务器最新资源</span></span><br><span class="line"><span class="code">            方案：</span></span><br><span class="line"><span class="code">                HTML使用协商缓存</span></span><br><span class="line"><span class="code">                css&amp;js&amp;图片使用强缓存。</span></span><br><span class="line"><span class="code">            ETAG 计算</span></span><br><span class="line"><span class="code">                * nginx 文件最后修改时间的16进制</span></span><br><span class="line"><span class="code">                * express 使用的 etag来计算的。</span></span><br><span class="line"><span class="code">    5. https 原理。</span></span><br><span class="line"><span class="code">    5. 跨域的原理和常见的解决方案。</span></span><br><span class="line"><span class="code">    6. 重排重绘的原理和优化措施。</span></span><br><span class="line"><span class="code">    7. http2多路复用  </span></span><br><span class="line"><span class="code">        1. 在 HTTP/1 中，每次请求都会建立一次 HTTP 连接，也就是我们常说的 3 次握手和 4 次挥手，这个过程在一次请求过程中占用了相当长的时间，即使开启了 `Keep-Alive`，解决了多次连接的问题，但是依然有两个效率上的问题，一是串行的文件传输，二是连接数过多导致的性能问题</span></span><br><span class="line"><span class="code">        2. HTTP/2 的多路复用就是为了解决上述的两个性能问题。</span></span><br><span class="line"><span class="code">            在 HTTP/2 中，有两个非常重要的概念，分别是帧（frame）和流（stream）。帧代表着最小的数据单位，每个帧会标识出该帧属于哪个流，流也就是多个帧组成的数据流。</span></span><br><span class="line"><span class="code">            多路复用，就是在一个 TCP 连接中可以存在多条流。换句话说，也就是可以发送多个请求，对端可以通过帧中的标识知道属于哪个请求。通过这个技术，可以避免 HTTP 旧版本中的队头阻塞问题，极大的提高传输性能。</span></span><br><span class="line"><span class="code">    8. CORS 解决方法。</span></span><br><span class="line"><span class="code">        1. Access-Control-Allow-Origin: *;</span></span><br><span class="line"><span class="code">        2. Access-Control-Allow-Methods: *;</span></span><br><span class="line"><span class="code">        3. Access-Control-Allow-Headers: *;</span></span><br><span class="line"><span class="code">        4. Access-Control-Allow-Credentials: true; 必须携带Cookies。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    9. 为什么js是单线程。</span></span><br><span class="line"><span class="code">        1. js作为浏览器的脚本语言，主要用来处理用户与浏览器的交互，以及操作dom。这决定了它只是单线程，否则会带来很复杂的同步问题。</span></span><br><span class="line"><span class="code">        2. 如果有一个线程要修改一个dom元素，另一个线程要删除一个dom元素，此时浏览器会不知所措。</span></span><br><span class="line"><span class="code">        3. web worker 技术，所有新线程受主线程控制，子线程不能操作I/O操作，和操作dom。仅可分担一些计算的任务。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    10. 重排和重绘</span></span><br><span class="line"><span class="code">    11. addEventListener </span></span><br><span class="line"><span class="code">        1. addEventListener( event,  function,  useCapture)</span></span><br><span class="line"><span class="code">        2. 默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。</span></span><br><span class="line"><span class="code">    12. DNS 解析查询过程</span></span><br><span class="line"><span class="code">        1. https://blog.csdn.net/bangshao1989/article/details/121913780 很不错</span></span><br><span class="line"><span class="code">        2. 浏览器缓存-&gt; 本地配置文件-&gt; 本地DNS服务器-&gt;根服务器-&gt;顶级域名服务器-&gt;NameServer服务器</span></span><br><span class="line"><span class="code">    13. 浏览器的一帧</span></span><br><span class="line"><span class="code">        1. input Event</span></span><br><span class="line"><span class="code">        2. js</span></span><br><span class="line"><span class="code">        3. begin Frame</span></span><br><span class="line"><span class="code">        4. raf</span></span><br><span class="line"><span class="code">        5. layout</span></span><br><span class="line"><span class="code">        6. paint</span></span><br><span class="line"><span class="code">        7.  RIC requestIdelCallback</span></span><br><span class="line"><span class="code">        </span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### nodejs</span></span><br><span class="line"><span class="code">    1. 前端页面嵌套代理多个前端项目怎么实现。</span></span><br><span class="line"><span class="code">        1. expres use 中间件,forwardsHanderMiddleWare。</span></span><br><span class="line"><span class="code">        2. 通过请求前缀规则来跳转到对应的前端应用</span></span><br><span class="line"><span class="code">        3. 通过reqest.pipe 转发请求。req.pipe(request).pipe(response)</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### http相关</span></span><br><span class="line"><span class="code">    1. https协议原理</span></span><br><span class="line"><span class="code">    2. get，post区别</span></span><br><span class="line"><span class="code">        1. 请求方式不同，get参数放在url路径上。post放在body体里面。</span></span><br><span class="line"><span class="code">        2. 请求参数大小不一样，get请求参数大小2048， post没有长度限制。</span></span><br><span class="line"><span class="code">        3. get可以后退，post后退会重新提交。</span></span><br><span class="line"><span class="code">        4. get请求可以被缓存，post不可以被缓存。</span></span><br><span class="line"><span class="code">        5. get请求只有URL编码，post支持多种编码方式。</span></span><br><span class="line"><span class="code">        6. get请求的记录会留在历史记录中，post请求不会留在历史记录。</span></span><br><span class="line"><span class="code">        7. get只支持ASCII字符，post没有字符类型限制。</span></span><br><span class="line"><span class="code">    3. http常见的状态吗</span></span><br><span class="line"><span class="code">        1. 200</span></span><br><span class="line"><span class="code">        2. 204</span></span><br><span class="line"><span class="code">        3. 301 资源永久转移，永久重定向。</span></span><br><span class="line"><span class="code">        4. 302 临时重定向。 响应头加入Location，浏览器也会重定向。</span></span><br><span class="line"><span class="code">        5. 304 协商缓存。请求的资源没有被修改</span></span><br><span class="line"><span class="code">        6. 400 请求头或参数不对</span></span><br><span class="line"><span class="code">        7. 401 没有提供认真的信息，请求头没带上Token。</span></span><br><span class="line"><span class="code">        8. 403 访问资源没有权限。</span></span><br><span class="line"><span class="code">        9. 413 post请求资源过大</span></span><br><span class="line"><span class="code">        10. 500 服务器错误。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### webpack</span></span><br><span class="line"><span class="code">    1. webpack 中 loader 和 plugin 的区别是什么？</span></span><br><span class="line"><span class="code">        1. loader： 转换器，将A文件进行编译成B文件，属于文件转换过程。</span></span><br><span class="line"><span class="code">        2. plugin： plugin 是一个扩展器，丰富了webpack本身，针对loader结束后，webpack打包的整个过程，它不不直接操作文件，而是基于事件机制，会监听webpack的打包过程的某些节点，执行广泛的任务。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### typeScript</span></span><br><span class="line"><span class="code">    1. interface 和 type的区别</span></span><br><span class="line"><span class="code">        1. 都可以用来声明函数和对象，不过书写方式不一样</span></span><br></pre></td></tr></table></figure>
+        interface examle &#123;
+            name: string
+            age: number
+        &#125;    
+        type example =  &#123;
+            name: string
+            age: number
+        &#125;
+        <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">        <span class="number">2</span>. interface 通过extends继承，<span class="keyword">type</span>通过 &amp; 来继承。</span><br><span class="line">        <span class="number">3</span>. 不同点。</span><br><span class="line">            <span class="number">1</span>. <span class="keyword">type</span> 可以定义基本的别名 <span class="keyword">type</span> myString = <span class="keyword">string</span></span><br><span class="line">            <span class="number">2</span>. <span class="keyword">type</span> 可以通过typeof 操作符来定义，<span class="keyword">type</span> myType = typeof someobj</span><br><span class="line">            <span class="number">3</span>. <span class="keyword">type</span> 可以声明联合声明， <span class="keyword">type</span> unionType = myType1 | myType2</span><br><span class="line">            <span class="number">4</span>. <span class="keyword">type</span> 可以申请元组申明， <span class="keyword">type</span> yuanzu = [myType1, myType2]</span><br><span class="line">            <span class="number">5</span>. interface 可以声明合并，重复声明。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### 其他</span></span><br><span class="line">    <span class="number">1</span>. 为什么通常在发送数据埋点请求的时候使用的是 <span class="number">1</span>x1 像素的透明 gif 图片？</span><br><span class="line">        <span class="number">1</span>. 能搞完成整个http请求加响应（尽管不需要响应的内容）</span><br><span class="line">        <span class="number">2</span>. 跨域友好。执行无阻塞。</span><br><span class="line">        <span class="number">3</span>. 相比于XMLHttpRequest 对象 发送的GET请求，性能更好。</span><br><span class="line">        <span class="number">4</span>. GIT的最低合法体积最好，合法的GIF只需要<span class="number">43</span>个字节。</span><br><span class="line">    </span><br><span class="line">    <span class="number">2</span>. 简述浏览器与 <span class="keyword">Node</span> <span class="title">的事件循环</span></span><br><span class="line"><span class="title">        # https</span>://blog.csdn.net/chenrongwei92/article/details/<span class="number">120877134</span></span><br><span class="line">        <span class="number">1</span>. 浏览器</span><br><span class="line">            <span class="number">1</span>. 宏任务 script代码， setTimeout，setInterval， I/O， UI render</span><br><span class="line">            <span class="number">2</span>. 微任务 promise（async/await），Object.observe, MutationObserver</span><br><span class="line">        <span class="number">2</span>. <span class="keyword">node</span> <span class="title">环境</span></span><br><span class="line"><span class="title">            1</span>. 宏任务 setTimeout,setInterval, setImmediate,scrit整体代码。I/O操作。</span><br><span class="line">            <span class="number">2</span>. 微任务 promise.nextTick。与普通微任务有区别，在微任务队列之前执行。new Primise().then()回调等。 times和interval，I/O操作，</span><br><span class="line">        区别:</span><br><span class="line">            <span class="number">1</span>. <span class="keyword">node</span> <span class="title">环境下的 setTimeout</span> 定时器会依次一起执行，浏览器是一个一个分开的；</span><br><span class="line">            <span class="number">2</span>. 浏览器环境下微任务的执行是每个宏任务执行之后，而 <span class="keyword">node</span> <span class="title">中微任务会在各个阶段执行，一个阶段结束立刻执行 microTask</span></span><br><span class="line">        浏览器：</span><br></pre></td></tr></table></figure>
+        while(true)&#123;
+            宏任务队列.shift()
+            微任务队列全部任务()
+        &#125;
+        <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">node</span><span class="title">环境下</span></span><br></pre></td></tr></table></figure>
+        while(true)&#123;
+            loop.forEach((阶段)=&gt;&#123;
+                阶段全部任务()
+                nextTick全部任务()
+                microTask全部任务()
+            &#125;)
+        &#125;
+        ```
+
+3. git rebase 的原理
+    1. 
+</code></pre>
+<p><img src="/2022/04/18/%E5%89%8D%E7%AB%AF%E5%BF%85%E4%BC%9A%E7%9F%A5%E8%AF%86%E7%82%B9/doc1_.pic.jpg" alt="rebase">
+            原理：rebase，变基，可以直接理解为改变基底。feature分支是基于master分支的B拉出来的分支，feature的基底是B。而master在B之后有新的提交，就相当于此时要用master上新的提交来作为feature分支的新基底。实际操作为把B之后feature的提交存下来，然后删掉原来这些提交，再找到master的最新提交位置，把存下来的提交再接上去（新节点新commit id），如此feature分支的基底就相当于变成了M而不是原来的B了。（注意，如果master上在B以后没有新提交，那么就还是用原来的B作为基，rebase操作相当于无效，此时和git merge就基本没区别了，差异只在于git merge会多一条记录Merge操作的提交记录）
+        2. git rebase –continue 继续变基，
+        3. git rebase –skip  如果确定已经解决并 add 了冲突的文件，还是出现提示让你 add 的情况
+        4. git rebase –abort 会放弃合并，回到rebase操作之前的状态，之前的提交的不会丢弃</p>
+<pre><code>4. SWR 思想。
+    1. SWR的名字来自stale-while-revalidate，是一种在前端领域越来越流行的缓存策略。它能够立即加载缓存的内容，同时刷新该内容，以便提供更新的内容。
+5. preload 预先加载
+    prefetch 空闲时加载
+6. 可以不eject，通过 craco 来实现webpack config
+</code></pre>
+<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://codesohigh.com/subject/react/chapter1.html#%E9%A2%84%E4%B9%A0%E8%A7%86%E9%A2%91">http://codesohigh.com/subject/react/chapter1.html#%E9%A2%84%E4%B9%A0%E8%A7%86%E9%A2%91</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44761091/article/details/122960870">https://blog.csdn.net/weixin_44761091/article/details/122960870</a> 宏任务和微任务</li>
+<li><a target="_blank" rel="noopener" href="https://pomb.us/build-your-own-react/">https://pomb.us/build-your-own-react/</a> </li>
+<li>前端1 <a target="_blank" rel="noopener" href="https://lucifer.ren/fe-interview/#/?id=%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98">https://lucifer.ren/fe-interview/#/?id=%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98</a></li>
+<li>前端2 <a target="_blank" rel="noopener" href="https://www.nowcoder.com/tutorial/96/a63925bbc0554a4dab0f89d0a56388c4">https://www.nowcoder.com/tutorial/96/a63925bbc0554a4dab0f89d0a56388c4</a></li>
+<li>前端3  <a target="_blank" rel="noopener" href="https://fecommunity.github.io/front-end-interview/%E9%9D%A2%E7%BB%8F%E7%B3%BB%E5%88%97/1.%E9%98%BF%E9%87%8C%E9%9D%A2%E7%BB%8F.html">https://fecommunity.github.io/front-end-interview/%E9%9D%A2%E7%BB%8F%E7%B3%BB%E5%88%97/1.%E9%98%BF%E9%87%8C%E9%9D%A2%E7%BB%8F.html</a></li>
+<li><img src="https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo" alt="react 文档"></li>
+<li><img src="https://zhuanlan.zhihu.com/p/395828896" alt="next.js精华"></li>
+</ol>
+<h3 id="难点："><a href="#难点：" class="headerlink" title="难点："></a>难点：</h3><pre><code>1. saga注入saga请求的时候，注入两次。不容易发现。
+2. 词云 字小 在打字里面，padding。 20个显示不完全，有时候多，有时候少。字体太大了。
+3. express post请求，413 请求数据太大，显示nginx 那边排查，后又接口测试没问题。bodyParser app.use() index和 子路由两处。
+4. Form 表单提交。 Form.Item ,有一个下拉多选框。 onChange=&#123;(v, options) =&gt; handleColChange(options)&#125;  form.setFieldsValue(&#123; col: [options[options.length - 1]] &#125;);，
+ Form  onValuesChange=&#123;onChangeHandler&#125;, 
+5. https://blog.csdn.net/An1090239782/article/details/117464917
+6. https://www.jianshu.com/p/cfd169820973 reacthooks下的状态管理
+7. https://zhuanlan.zhihu.com/p/353135461  zustand 状态管理的源码
+8. https://blog.csdn.net/m0_61700036/article/details/122864977 泛型 typescript
+</code></pre>
+<p>引力波</p>
+<ol>
+<li>http2 和 http1 的区别</li>
+<li>dns 域名查询</li>
+<li>http缓存</li>
+<li>code review</li>
+<li>git-precomit</li>
+<li>ci cd 原理</li>
+<li>前端工程化</li>
+<li>业务优化 react 优化</li>
+<li>diff 算法</li>
+<li>treeshaking 只优化静态代码</li>
+<li>调和阶段可以中断 commit阶段不可以中断。</li>
+<li>dvajs umi</li>
+</ol>
+<p>nodejs 代理的实现，
+fiber树
+this.setState 发生了什么
+用过哪些  webpack 包。</p>
+<p>作用域
+原型链
+react Hooks理解</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">知识整理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/知识整理//" class="article-tag-list-link color5">知识整理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/18/%E5%89%8D%E7%AB%AF%E5%BF%85%E4%BC%9A%E7%9F%A5%E8%AF%86%E7%82%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-垃圾回收机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -586,151 +1005,9 @@ Discuz !Q是以安装包的形式提供给用户，用户无法自己重新编�
 
 
   
-    <article id="post-css知识整理-一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">css知识整理(一)</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/" class="archive-article-date">
-  	<time datetime="2022-04-11T08:27:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>css 学习<ol>
-<li>font<ol>
-<li> font-normal font-weight font-size/line-height  “font-family”</li>
-</ol>
-</li>
-<li>文本<ol>
-<li>color</li>
-<li>text-align 水平对其方式</li>
-<li>text-decoration 装饰文本 none underline overline line-through</li>
-<li>Text-indent 文本缩紧</li>
-<li>line-heigh 行间距 上间距 文本高度 下间距</li>
-</ol>
-</li>
-<li> chrome 调试工具</li>
-<li>emmet 语法，zen coding<ol>
-<li><img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-1.png" alt="image-20211205201704102"></li>
-<li>div.app / div.#app 会快速生成元素</li>
-<li>快速格式化文档</li>
-</ol>
-</li>
-<li>复合选择器<ol>
-<li>后代选择器</li>
-<li>子类选择权</li>
-<li>并集选择器</li>
-<li>伪类选择器 ：<ol>
-<li>链接伪类 link visted active hover   LVHA</li>
-<li>选中的  :focus</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>行内元素 块元素 行内块元素<ol>
-<li> <img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-2.png" alt="image-20211205205303026"></li>
-<li> p 里面不放 div</li>
-<li> a 也不放 div</li>
-<li> 显示转换 disply： block </li>
-<li> snipaste</li>
-<li> 文字垂直居中</li>
-<li>background-color，background-image， background-repeat，background-attachment，background-position<ol>
-<li><img src="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/image-3.png" alt="image-20211205211001061"></li>
-</ol>
-</li>
-</ol>
-</li>
-<li>css 三大特性 层叠行 继承性 优先级<ol>
-<li>行高会继承</li>
-</ol>
-</li>
-<li>盒子模型本质<ol>
-<li>浮动 </li>
-<li>定位 </li>
-<li>border-collapse： collapse 合并相邻的边框</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">清除浮动</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/css//" class="article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/11/css%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E4%B8%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 

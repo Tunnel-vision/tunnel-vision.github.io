@@ -16,7 +16,7 @@
 <meta property="og:description" content="js 对 this的理解">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-13T03:30:48.000Z">
-<meta property="article:modified_time" content="2021-08-29T11:00:54.000Z">
+<meta property="article:modified_time" content="2022-05-12T10:19:43.000Z">
 <meta property="article:author" content="Liu Xin">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -228,6 +228,29 @@
 <p>webpack中hash,chunkhash,contenthhash的区别</p>
 <p>参考:
 1.<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_49712611/article/details/109549131">https://blog.csdn.net/qq_49712611/article/details/109549131</a></p>
+<ol>
+<li><p> <a href></a>{}</p>
+</li>
+<li><p>深度遍历 </p>
+</li>
+<li><p>function run(){
+ console.log(1);
+ setTimeout(()=&gt;{</p>
+<pre><code> console.log(2)
+</code></pre>
+<p> },0)
+ new Promise((reslove)=&gt;{</p>
+<pre><code> console.log(3)
+ reslove();
+</code></pre>
+<p> })</p>
+<p> console.log(4)</p>
+</li>
+</ol>
+<p>}</p>
+<p>性能影响哪些地方</p>
+<p>4 10000+ 数据列表 怎么实现。</p>
+<p>5. </p>
 
       
 
